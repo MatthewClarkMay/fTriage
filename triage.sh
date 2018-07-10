@@ -1,12 +1,6 @@
 #!/bin/bash
 
-HOSTNAME="xp"
-PROFILE="WinXPSP3x86"
-
-DISKPATH=""
-MEMPATH=""
-OUTDIR="/path/to/dir"
-
+source ./var.conf
 
 ##########################
 ######### Prep ###########
