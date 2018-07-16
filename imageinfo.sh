@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/bash
 
 if [ -f "./settings.conf" ]; then
     source ./settings.conf
@@ -7,6 +7,4 @@ else
     exit 1
 fi
 
-#rm -rf $OUTDIR
-#rm -rf $OUTDIR/carving/foremost
-rm -rf $OUTDIR/carving/volatility
+vol.py -f $MEMPATH imageinfo
