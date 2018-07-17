@@ -3,9 +3,9 @@
 # Reference:
 # https://www.nist.gov/itl/ssd/software-quality-group/nsrl-download/current-rds-hash-sets
 
-wget https://s3.amazonaws.com/rds.nsrl.nist.gov/RDS/current/README.txt
-wget https://s3.amazonaws.com/rds.nsrl.nist.gov/RDS/current/RDS_HashCounts.txt
-wget https://s3.amazonaws.com/rds.nsrl.nist.gov/RDS/current/version.txt
+#wget https://s3.amazonaws.com/rds.nsrl.nist.gov/RDS/current/README.txt
+#wget https://s3.amazonaws.com/rds.nsrl.nist.gov/RDS/current/RDS_HashCounts.txt
+#wget https://s3.amazonaws.com/rds.nsrl.nist.gov/RDS/current/version.txt
 
 # Modern RDS (microcomputer applications from 2000 to present)
 #wget https://s3.amazonaws.com/rds.nsrl.nist.gov/RDS/current/RDS_modern.iso
@@ -24,5 +24,3 @@ wget https://s3.amazonaws.com/rds.nsrl.nist.gov/RDS/current/rds_modernm.zip
 
 # Legacy RDS (microcomputer applications from 1999 and earlier)
 #wget https://s3.amazonaws.com/rds.nsrl.nist.gov/RDS/current/RDS_legacy.iso
-
-unzip *.zip
