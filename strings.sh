@@ -8,28 +8,28 @@ else
 fi
 
 
-# If volatility OUTDIR does not exist, create it - else, continue 
-if [ ! -d "$OUTDIR/carving/volatility" ]; then
-    echo "Directory $OUTDIR/carving/volatility/ does not exist - creating it now..."
-    mkdir -p $OUTDIR/carving/volatility
+# If $OUTDIR/carving does not exist, create it - else, continue 
+if [ ! -d "$OUTDIR/carving/" ]; then
+    echo "Directory $OUTDIR/carving/ does not exist - creating it now..."
+    mkdir -p $OUTDIR/carving/
 else
-    echo "Directory $OUTDIR/carving/volatility/ already exists - moving on..."
+    echo "Directory $OUTDIR/carving/ already exists - moving on..."
 fi
 
-# if strings_audit.txt already exists, move on - else, create it
-if [ -f "$OUTDIR/carving/volatility/strings_audit_sorted.txt" ]; then
-    echo "File $OUTDIR/carving/volatility/strings_audit_sorted.txt already exists - moving on..."
+# if $OUTDIR/m_strings_audit_sorted.txt already exists, move on - else, create it
+if [ -f "$OUTDIR/carving/m_strings_audit_sorted.txt" ]; then
+    echo "File $OUTDIR/m_strings_audit_sorted.txt already exists - moving on..."
 else
     echo "Searching for strings...(1)"
-    strings -a -t d $MEMPATH > $OUTDIR/carving/volatility/strings_audit.txt
+    strings -a -t d $MEMPATH > $OUTDIR/carving/m_strings_audit.txt
     echo "Searching for strings...(2)"
-    strings -a -t d -e l $MEMPATH >> $OUTDIR/carving/volatility/strings_audit.txt
-    echo "Sorting strings_audit.txt into strings_audit_sorted.txt"
-    sort $OUTDIR/carving/volatility/strings_audit.txt > $OUTDIR/carving/volatility/strings_audit_sorted.txt
+    strings -a -t d -e l $MEMPATH >> $OUTDIR/carving/m_strings_audit.txt
+    echo "Sorting m_strings_audit.txt into m_strings_audit_sorted.txt"
+    sort $OUTDIR/carving/m_strings_audit.txt > $OUTDIR/carving/m_strings_audit_sorted.txt
 fi
 
-if [ -f "$OUTDIR/carving/volatility/strings_audit.txt" ]; then
-    rm $OUTDIR/carving/volatility/strings_audit.txt
+if [ -f "$OUTDIR/carving/m_strings_audit.txt" ]; then
+    rm $OUTDIR/carving/m_strings_audit.txt
 else
     exit 1
 fi

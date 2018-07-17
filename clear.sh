@@ -14,4 +14,4 @@ fi
 #rm -rf $OUTDIR/carving/volatility/dumpfiles_exe
 #rm -rf $OUTDIR/carving/volatility/dumpfiles_dll
 #rm -rf $OUTDIR/carving/volatility/dlldump
-rm -rf $OUTDIR/carving/volatility/*strings*
+rm -rf $OUTDIR/carving/*strings*
