@@ -36,9 +36,9 @@ else
     #foremost -q -b 4096 -o $OUTDIR/carving/foremost -c /usr/local/etc/foremost.conf $OUTDIR/carving/$HOSTNAME.blkls
 fi
 
-if [ -f "$OUTDIR/carving/foremost_slack/foremost_slack_audit.txt" ]; then
+if [ -f "$OUTDIR/carving/foremost_slack/audit.txt" ]; then
     echo ""
-    egrep '(FILES EXTRACTED|:=)' $OUTDIR/carving/foremost_slack/foremost_slack_audit.txt
+    egrep '(FILES EXTRACTED|:=)' $OUTDIR/carving/foremost_slack/audit.txt
 else
-    echo "File $OUTDIR/carving/foremost_slack/foremost_slack_audit.txt does not exist..."
+    echo "File $OUTDIR/carving/foremost_slack/audit.txt does not exist..."
 fi

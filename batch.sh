@@ -8,7 +8,7 @@ else
 fi
 
 echo "Running DISK triage"
-./vshadow.sh
+#./vshadow.sh
 ./d_unallocated_filecarve.sh
 ./d_slack_filecarve.sh
 ./d_strings.sh
@@ -18,3 +18,6 @@ echo "Running MEMORY triage"
 ./m_filecarve.sh
 ./m_strings.sh
 ./filescan.sh
+
+echo "Hashing suspect files"
+./hash_carved_files.sh
