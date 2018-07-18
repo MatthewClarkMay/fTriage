@@ -23,7 +23,7 @@ else
     echo "$OUTDIR/carving/sorter is empty - let's fill it up!"
     echo "Running sorter now using $WHITE_HASH_IDX"
     if [ -f "$WHITE_HASH_IDX" ]; then
-        sorter -U -s -m C: -x $WHITE_HASH_IDX -d $OUTDIR/carving/sorter -C $SORTER_CONF $DISKPATH | tee $OUTDIR/carving/sorter/sorter_audit.txt
+        sorter -U -s -m C: -x $WHITE_HASH_IDX -d $OUTDIR/carving/sorter -C $SORTER_CONF $DISKPATH_
     else
         echo "$WHITE_HASH_IDX does not exist - exiting now..."
         exit 1 

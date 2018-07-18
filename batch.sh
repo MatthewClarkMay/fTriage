@@ -8,6 +8,7 @@ else
 fi
 
 echo "Running DISK triage"
+./vshadow.sh
 ./d_unallocated_filecarve.sh
 ./d_slack_filecarve.sh
 ./d_strings.sh

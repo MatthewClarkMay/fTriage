@@ -91,20 +91,3 @@ category 	exec 		\sscript
 category 	AdobePDF 	PDF document
 ext 		pdf 		PDF document
 # Crypto
-# Microsoft Office
-category 	MSdocs 		Microsoft Office Document
-ext 		doc,dot,docx 	Microsoft Office Document
-ext 		msc,pcb 	Microsoft Office Document
-ext 		ppt,pot,pptx 	Microsoft Office Document
-ext 		xls,xlsx	Microsoft Office Document
-ext 		msi 		Microsoft Office Document
-category 	MSdocs 		Microsoft Word Document
-ext 		doc 		Microsoft Word Document
-category	MSdocs		Microsoft Excel Worksheet
-ext 		xls,xlt,xlsx 	Microsoft Excel Worksheet
-ext 		cvs 		Microsoft Excel Worksheet
-
-# Rich Text Docs
-category	documents	Rich Text Format
-ext		rtf		Rich Text Format
-
