@@ -7,7 +7,7 @@ else
     exit 1
 fi
 
-> $OUTDIR/batch-audit.txt
+#> $OUTDIR/batch-audit.txt
 
 echo "Running DISK triage" | tee -a $OUTDIR/batch-audit.txt
 echo "--------------" | tee -a $OUTDIR/batch-audit.txt
@@ -28,6 +28,9 @@ echo "--------------" | tee -a $OUTDIR/batch-audit.txt
 ./m_strings.sh | tee -a $OUTDIR/batch-audit.txt
 echo "--------------" | tee -a $OUTDIR/batch-audit.txt
 ./filescan.sh | tee -a $OUTDIR/batch-audit.txt
+echo "--------------" | tee -a $OUTDIR/batch-audit.txt
+echo "Reducing Carved Files"
+./reduce_carved_files.sh | tee -a $OUTDIR/batch-audit
 
 echo "--------------" | tee -a $OUTDIR/batch-audit.txt
 echo "Hashing suspect files" | tee -a $OUTDIR/batch-audit.txt
@@ -36,4 +39,5 @@ echo "Hashing suspect files" | tee -a $OUTDIR/batch-audit.txt
 echo "--------------" | tee -a $OUTDIR/batch-audit.txt
 echo "Creating timeline" | tee -a $OUTDIR/batch-audit.txt
 ./timeline.sh | tee -a $OUTDIR/batch-audit.txt
+echo "--------------" | tee -a $OUTDIR/batch-audit.txt
 

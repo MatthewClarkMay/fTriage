@@ -5,7 +5,7 @@ AUTOMATED:
 - targeted artifact acquisition
   - plaso / log2timeline.py
   - image_export.py
-  - fls + memory timeline
+  + fls + memory timeline
 
 - Prep Evidence / Data Reduction
   + Carve EXE and DLL files from disk using foremost

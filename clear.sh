@@ -18,4 +18,5 @@ fi
 #rm -rf $OUTDIR/carving/carved_hashlists
 #rm -rf $OUTDIR/carving/vshadow
 #rm -rf $OUTDIR/carving/sorter
-rm -rf $OUTDIR/timeline
+rm -rf $OUTDIR/carving/reduced_exes
+#rm -rf $OUTDIR/timeline
