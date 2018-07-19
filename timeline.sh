@@ -16,19 +16,19 @@ else
 fi
 
 # If fls bodyfile does not exist, create it - else, continue
-if [ ! -f "$OUTDIR/timeline/fls.bodyfile" ] && [ -f $DISKPATH ]; then
+if [ ! -f "$OUTDIR/timeline/fls.bodyfile" ] && [ -f "$DISKPATH" ]; then
     echo "Creating fls bodyfile..."
     fls -r -m C: $DISKPATH > $OUTDIR/timeline/fls.bodyfile
 else
-    echo "File $OUTDIR/timeline/fls.bodyfile already exists, or $DISKPATH does not exist - moving on..."
+    echo "File $OUTDIR/timeline/fls.bodyfile already exists, or DISKPATH variable does not exist - moving on..."
 fi    
 
 # If volatility timeliner bodyfile does not exist, create it - else, continue
-if [ ! -f "$OUTDIR/timeline/vol-timeliner.bodyfile" ] && [ -f $MEMPATH ]; then
+if [ ! -f "$OUTDIR/timeline/vol-timeliner.bodyfile" ] && [ -f "$MEMPATH" ]; then
     echo "Creating volatility timeliner bodyfile..."
     vol.py -f $MEMPATH --profile=$PROFILE timeliner --output=body --output-file=$OUTDIR/timeline/vol-timeliner.bodyfile
 else
-    echo "File $OUTDIR/timeline/vol-timeliner.bodyfile already exists, or $MEMPATH does not exist - moving on..."
+    echo "File $OUTDIR/timeline/vol-timeliner.bodyfile already exists, or MEMPATH variable does not exist - moving on..."
 fi    
 
 # Combine fls.bodyfile and vol-timeliner.bodyfile
@@ -60,13 +60,14 @@ if [ ! -f "$OUTDIR/timeline/timeline.csv" ]; then
     echo "Creating timeline.csv..."
     mactime -z UTC -y -d -b $BODYFILE $TIMELINE_START..$TIMELINE_END > $OUTDIR/timeline/timeline.csv
 else
-    echo "File timeline.csv already exists - moving on..."
+    echo "File timeline.csv already exists - replacing now..."
+    mactime -z UTC -y -d -b $BODYFILE $TIMELINE_START..$TIMELINE_END > $OUTDIR/timeline/timeline.csv
 fi    
 
-if [ ! -f "$OUTDIR/timeline/timeline-filtered.csv" ] && [ -f "$OUTDIR/timeline/timeline.csv" ] && [ -f $TIMELINE_REDUCE ]; then
+if [ -f "$OUTDIR/timeline/timeline.csv" ] && [ -f $TIMELINE_REDUCE ]; then
     echo "Creating timeline-filtered.csv..."
     grep -v -i -f $TIMELINE_REDUCE $OUTDIR/timeline/timeline.csv > $OUTDIR/timeline/timeline-filtered.csv
 else   
-    echo "File timeline-filtered.csv already exists, or timeline.csv does not, or $TIMELINE_REDUCE does not exist - exiting..."
+    echo "File timeline.csv does not exist, or $TIMELINE_REDUCE does not exist - exiting..."
     exit 1
 fi

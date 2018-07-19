@@ -7,17 +7,33 @@ else
     exit 1
 fi
 
-echo "Running DISK triage"
-#./vshadow.sh
-./d_unallocated_filecarve.sh
-./d_slack_filecarve.sh
-./d_strings.sh
-#./sorter.sh
+> $OUTDIR/batch-audit.txt
 
-echo "Running MEMORY triage"
-./m_filecarve.sh
-./m_strings.sh
-./filescan.sh
+echo "Running DISK triage" | tee -a $OUTDIR/batch-audit.txt
+echo "--------------" | tee -a $OUTDIR/batch-audit.txt
+./vshadow.sh | tee -a $OUTDIR/batch-audit.txt
+echo "--------------" | tee -a $OUTDIR/batch-audit.txt
+./d_unallocated_filecarve.sh | tee -a $OUTDIR/batch-audit.txt
+echo "--------------" | tee -a $OUTDIR/batch-audit.txt
+./d_slack_filecarve.sh | tee -a $OUTDIR/batch-audit.txt
+echo "--------------" | tee -a $OUTDIR/batch-audit.txt
+./d_strings.sh | tee -a $OUTDIR/batch-audit.txt
+echo "--------------" | tee -a $OUTDIR/batch-audit.txt
+#./sorter.sh | tee -a $OUTDIR/batch-audit.txt
 
-echo "Hashing suspect files"
-./hash_carved_files.sh
+echo "--------------" | tee -a $OUTDIR/batch-audit.txt
+echo "Running MEMORY triage" | tee -a $OUTDIR/batch-audit.txt
+./m_filecarve.sh | tee -a $OUTDIR/batch-audit.txt
+echo "--------------" | tee -a $OUTDIR/batch-audit.txt
+./m_strings.sh | tee -a $OUTDIR/batch-audit.txt
+echo "--------------" | tee -a $OUTDIR/batch-audit.txt
+./filescan.sh | tee -a $OUTDIR/batch-audit.txt
+
+echo "--------------" | tee -a $OUTDIR/batch-audit.txt
+echo "Hashing suspect files" | tee -a $OUTDIR/batch-audit.txt
+./hash_carved_files.sh | tee -a $OUTDIR/batch-audit.txt
+
+echo "--------------" | tee -a $OUTDIR/batch-audit.txt
+echo "Creating timeline" | tee -a $OUTDIR/batch-audit.txt
+./timeline.sh | tee -a $OUTDIR/batch-audit.txt
+

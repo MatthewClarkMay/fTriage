@@ -71,10 +71,10 @@ else
     echo "Directory $OUTDIR/carving/volatility/ does not exist or is empty - moving on..."
 fi
 
-# If directory $OUTDIR/carving/tsk exists and contains directories/files, hash their contents - else, continue
-if [ -d "$OUTDIR/carving/tsk" ] && [ "$(ls -A $OUTDIR'/carving/tsk')" ]; then
-    echo "Directory $OUTDIR/carving/tsk/ exists and is not empty - hashing directory contents"
-    find $OUTDIR/carving/tsk -exec md5sum {} 2>/dev/null \; >> $OUTDIR'/carving/carved_hashlists/tsk_recover_hashlist.txt'
+# If directory $OUTDIR/carving/tsk_recover exists and contains directories/files, hash their contents - else, continue
+if [ -d "$OUTDIR/carving/tsk_recover" ] && [ "$(ls -A $OUTDIR'/carving/tsk_recover')" ]; then
+    echo "Directory $OUTDIR/carving/tsk_recover/ exists and is not empty - hashing directory contents"
+    find $OUTDIR/carving/tsk_recover -exec md5sum {} 2>/dev/null \; >> $OUTDIR'/carving/carved_hashlists/tsk_recover_hashlist.txt'
     egrep '(.exe|.dll)' $OUTDIR/carving/carved_hashlists/tsk_recover_hashlist.txt > $OUTDIR/carving/carved_hashlists/tsk_exe_dll_hashlist.txt
 else
     echo "Directory $OUTDIR/carving/volatility/ does not exist or is empty - moving on..."

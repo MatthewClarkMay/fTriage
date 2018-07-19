@@ -43,21 +43,22 @@ else
     echo "File $OUTDIR/carving/foremost_unallocated/audit.txt does not exist..."
 fi
 
-# If tsk OUTDIR does not exist, create it - else, continue 
-if [ ! -d "$OUTDIR/carving/tsk" ]; then
-    echo "$OUTDIR/carving/tsk does not exist - creating it now..."
-    mkdir -p $OUTDIR/carving/tsk
+# If tsk_recover OUTDIR does not exist, create it - else, continue 
+if [ ! -d "$OUTDIR/carving/tsk_recover" ]; then
+    echo "$OUTDIR/carving/tsk_recover does not exist - creating it now..."
+    mkdir -p $OUTDIR/carving/tsk_recover
 else
-    echo "Directory $OUTDIR/carving/tsk/ already exists - moving on..."
+    echo ""
+    echo "Directory $OUTDIR/carving/tsk_recover/ already exists - moving on..."
 fi
 
 # If tsk OUTDIR is not empty, inform user and exit
-if [ "$(ls -A $OUTDIR'/carving/tsk')" ]; then
-    echo "Directory $OUTDIR/carving/tsk/ is not empty, clear it out before filling it up - moving on for now..."
+if [ "$(ls -A $OUTDIR'/carving/tsk_recover')" ]; then
+    echo "Directory $OUTDIR/carving/tsk_recover/ is not empty, clear it out before filling it up - moving on for now..."
     #exit 1
 else
-    echo "$OUTDIR/carving/tsk/ is empty - let's fill it up!"
+    echo "$OUTDIR/carving/tsk_recover/ is empty - let's fill it up!"
     echo 'Carving files unallocated files using tsk_recover...'
-    tsk_recover $DISKPATH $OUTDIR/carving/tsk
+    tsk_recover $DISKPATH $OUTDIR/carving/tsk_recover
 fi
 
