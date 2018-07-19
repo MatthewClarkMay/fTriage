@@ -16,4 +16,6 @@ fi
 #rm -rf $OUTDIR/carving/volatility/dlldump
 #rm -rf $OUTDIR/carving/*strings*
 rm -rf $OUTDIR/carving/carved_hashlists
-#rm -rf $OUTDIR/carving/vshadow
+rm -rf $OUTDIR/carving/vshadow
+#rm -rf $OUTDIR/carving/sorter
+rm -rf $OUTDIR/timeline

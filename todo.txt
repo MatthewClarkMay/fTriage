@@ -1,29 +1,30 @@
 AUTOMATED:
-- Gather most recent nsrl or baseline md5deep list and index
-  - hfind -i <nsrl-md5 OR md5sum> <hashlist>
++ Gather most recent nsrl or baseline md5deep list and index
+  + hfind -i <nsrl-md5 OR md5sum> <hashlist>
 
 - targeted artifact acquisition
   - plaso / log2timeline.py
   - image_export.py
+  - fls + memory timeline
 
 - Prep Evidence / Data Reduction
-  - Carve EXE and DLL files from disk using foremost
-    - unallocated
-    - slack
-  - Carve EXE and DLL files from memory using vol.py
-    - vol.py dumpfiles -n -i -r \\.exe
-    - vol.py dumpfiles -n -i -r \\.dll
-    - vol.py dlldump
-  - Strings output for disk 
-  - Strings output for memory
+  + Carve EXE and DLL files from disk using foremost
+    + unallocated
+    + slack
+  + Carve EXE and DLL files from memory using vol.py
+    + vol.py dumpfiles -n -i -r \\.exe
+    + vol.py dumpfiles -n -i -r \\.dll
+    + vol.py dlldump
+  + Strings output for disk 
+  + Strings output for memory
   - VSS
     - if exists, mount each VSS:
       - dump unallocated + slack, repeat file carving
       - strings output for disk
       - grab hiberfil.sys, rebuild memory image, repeat file carving + strings (PLASO / LOG2TIMELINE)
-  - Sorter - compare nsrl to disk image --> carve + sort all files (excluding nsrl)
-    - creates directory tree with a bunch of files recovered from disk not in nsrl 
-  - also try out tsk_recover
+  + sorter - compare nsrl to disk image --> carve + sort all files (excluding nsrl)
+  + tsk_recover
+  + hash carved files
   - Compare carved hashes to good hash list (sorter does not do this for files that have no metadata or filename data)
 
 - AV Checks
