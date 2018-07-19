@@ -24,14 +24,7 @@ else
     echo "Directory $OUTDIR/carving/volatility/ is empty - let's fill it up!"
 fi
 
-# If volatility/filescan OUTDIR does not exist, create it - else, continue
-#if [ ! -d "$OUTDIR/carving/volatility/filescan" ]; then
-#    echo "Directory $OUTDIR/carving/volatility/filescan/ does not exist - creating it now..."
-#    mkdir -p $OUTDIR/carving/volatility/filescan
-#else
-#    echo "Directory $OUTDIR/carving/volatility/filescan already exists - moving on..."
-#fi
-
+# If filescan_audit.txt already exists, then inform user and exit - else, create it
 if [ -f "$OUTDIR/carving/volatility/filescan_audit.txt" ]; then
     echo "filescan_audit.txt already exists - exiting now..."
     exit 1
