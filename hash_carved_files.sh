@@ -77,5 +77,12 @@ if [ -d "$OUTDIR/carving/tsk_recover" ] && [ "$(ls -A $OUTDIR'/carving/tsk_recov
     find $OUTDIR/carving/tsk_recover -exec md5sum {} 2>/dev/null \; >> $OUTDIR'/carving/carved_hashlists/tsk_recover_hashlist.txt'
     egrep '(.exe|.dll)' $OUTDIR/carving/carved_hashlists/tsk_recover_hashlist.txt > $OUTDIR/carving/carved_hashlists/tsk_exe_dll_hashlist.txt
 else
-    echo "Directory $OUTDIR/carving/volatility/ does not exist or is empty - moving on..."
+    echo "Directory $OUTDIR/carving/tsk_recover/ does not exist or is empty - moving on..."
+fi
+
+if [ -d "$OUTDIR/carving/reduced_exes" ] && [ "$(ls -A $OUTDIR'/carving/reduced_exes')" ]; then
+    echo "Directory $OUTDIR/carving/reduced_exes/ exists and is not empty - hashing directory contents"
+    find $OUTDIR/carving/reduced_exes -exec md5sum {} 2>/dev/null \; >> $OUTDIR'/carving/carved_hashlists/reduced_exes_hashlist.txt'
+else
+    echo "Directory $OUTDIR/carving/reduced_exes/ does not exist or is empty - moving on..."
 fi
