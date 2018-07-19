@@ -25,7 +25,7 @@ else
     echo "Searching for strings...(2)"
     strings -a -t d -e l $DISKPATH >> $OUTDIR/carving/d_strings_audit.txt
     echo "Sorting d_strings_audit.txt into d_strings_audit_sorted.txt"
-    sort $OUTDIR/carving/d_strings_audit.txt > $OUTDIR/carving/d_strings_audit_sorted.txt
+    sort -u $OUTDIR/carving/d_strings_audit.txt > $OUTDIR/carving/d_strings_audit_sorted.txt
 fi
 
 if [ -f "$OUTDIR/carving/d_strings_audit.txt" ]; then

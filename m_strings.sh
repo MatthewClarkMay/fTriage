@@ -25,7 +25,7 @@ else
     echo "Searching for strings...(2)"
     strings -a -t d -e l $MEMPATH >> $OUTDIR/carving/m_strings_audit.txt
     echo "Sorting m_strings_audit.txt into m_strings_audit_sorted.txt"
-    sort $OUTDIR/carving/m_strings_audit.txt > $OUTDIR/carving/m_strings_audit_sorted.txt
+    sort -u $OUTDIR/carving/m_strings_audit.txt > $OUTDIR/carving/m_strings_audit_sorted.txt
 fi
 
 if [ -f "$OUTDIR/carving/m_strings_audit.txt" ]; then

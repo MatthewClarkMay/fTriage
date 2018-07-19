@@ -39,6 +39,7 @@ fi
 if [ -f "$OUTDIR/carving/foremost_unallocated/audit.txt" ]; then
     echo ""
     egrep '(FILES EXTRACTED|:=)' $OUTDIR/carving/foremost_unallocated/audit.txt
+    echo "--------------"
 else
     echo "File $OUTDIR/carving/foremost_unallocated/audit.txt does not exist..."
 fi
@@ -58,7 +59,7 @@ if [ "$(ls -A $OUTDIR'/carving/tsk_recover')" ]; then
     #exit 1
 else
     echo "$OUTDIR/carving/tsk_recover/ is empty - let's fill it up!"
-    echo 'Carving files unallocated files using tsk_recover...'
+    echo 'Carving unallocated files using tsk_recover...'
     tsk_recover $DISKPATH $OUTDIR/carving/tsk_recover
 fi
 
