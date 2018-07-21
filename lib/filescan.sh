@@ -1,9 +1,9 @@
 #!/bin/bash
 
-if [ -f "./settings.conf" ]; then
-    source ./settings.conf
+if [ -f "../conf/ftriage.sh" ]; then
+    source ../conf/ftriage.sh
 else
-    echo "./settings.conf missing - exiting..."
+    echo "../conf/ftriage.sh missing - exiting..."
     exit 1
 fi
 

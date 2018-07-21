@@ -1,18 +1,18 @@
 #!/bin/bash
 
-if [ -f "./settings.conf" ]; then
-    source ./settings.conf
+if [ -f "../conf/ftriage.conf"]; then
+    source ../conf/ftriage.conf
 else
-    echo "./settings.conf missing - exiting..."
+    echo "../conf/ftriage.conf missing - exiting..."
     exit 1
 fi
 
-# If timeline OUTDIR does not exist, create it - else, continue 
-if [ ! -d "$OUTDIR/timeline" ]; then
-    echo "$OUTDIR/timeline/ does not exist - creating it now..."
-    mkdir -p $OUTDIR/timeline
+# If supertimeline OUTDIR does not exist, create it - else, continue 
+if [ ! -d "$OUTDIR/supertimeline" ]; then
+    echo "$OUTDIR/supertimeline/ does not exist - creating it now..."
+    mkdir -p $OUTDIR/supertimeline
 else
-    echo "Directory $OUTDIR/timeline/ already exists - moving on..."
+    echo "Directory $OUTDIR/supertimeline/ already exists - moving on..."
 fi
 
 # If fls bodyfile does not exist, create it - else, continue
