@@ -1,10 +1,10 @@
 #!/bin/bash
 
-if [ -f "../conf/ftriage.conf" ]; then
-    source ../conf/ftriage.conf
-else
-    echo "../conf/ftriage.conf missing - exiting..."
+if [ $# -ne 1 ] || [ ! -f $1 ]; then
+    echo "ERROR - usage: $0 /path/to/ftriage.conf"
     exit 1
+else
+    source $1
 fi
 
 if [ -f $MEMPATH ]; then

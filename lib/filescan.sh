@@ -1,12 +1,11 @@
 #!/bin/bash
 
-if [ -f "../conf/ftriage.sh" ]; then
-    source ../conf/ftriage.sh
-else
-    echo "../conf/ftriage.sh missing - exiting..."
+if [ $# -ne 1 ] || [ ! -f $1 ]; then
+    echo "ERROR - usage: $0 /path/to/ftriage.conf"
     exit 1
+else
+    source $1
 fi
-
 
 # If volatility OUTDIR does not exist, create it - else, continue 
 if [ ! -d "$OUTDIR/carving/volatility" ]; then
