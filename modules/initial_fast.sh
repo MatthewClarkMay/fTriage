@@ -17,6 +17,8 @@ else
     echo "Directory $OUTDIR/logs/ already exists - moving on..."
 fi
 
+> $OUTDIR/logs/session.log
+
 echo "----------"
 echo "Running scripts in: $lib"
 echo "Using configuration file: $conf"
@@ -46,10 +48,12 @@ do
     echo "JOB: $script - PID $! - writing to $OUTDIR/logs/$meta.log" | tee -a $OUTDIR/logs/session.log
 done
 
+echo "----------" | tee -a $OUTDIR/logs/session.log
+
 while [ ! ${#pids_in[@]} -eq 0 ]; do
     clear
-    head -${#script_list[@]} $OUTDIR/logs/session.log
-    echo "----------"
+    head -${#script_list[@]} $OUTDIR/logs/session.log | tee -a $OUTDIR/logs/session.log
+    echo "----------" | tee -a $OUTDIR/logs/session.log
 
     for pid in ${pids_in[@]}
     do
@@ -63,7 +67,7 @@ while [ ! ${#pids_in[@]} -eq 0 ]; do
     if [ ! ${#dead[@]} -eq 0 ]; then
         for pid in ${dead[@]}
         do
-            echo "PID: $pid - DEAD"
+            echo "PID: $pid - DEAD" | tee -a $OUTDIR/logs/session.log
         done
     fi
 
@@ -72,12 +76,13 @@ while [ ! ${#pids_in[@]} -eq 0 ]; do
         #echo $pid
         if [[ ! " ${pids_out[@]} " =~ " ${pid} " ]]; then
         #    #echo "JOB: $pid_name - PID: $pid - FINISHED"
-            echo "PID: $pid - FINISHED"
+            echo "PID: $pid - FINISHED" | tee -a $OUTDIR/logs/session.log
             dead+=("$pid")
         fi
     done
     
     pids_in=("${pids_out[@]}")
     unset pids_out
+    echo "----------" >> $OUTDIR/logs/session.log
     sleep 5
 done
