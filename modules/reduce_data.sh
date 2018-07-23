@@ -17,7 +17,7 @@ else
     echo "Directory $OUTDIR/logs/ already exists - moving on..."
 fi
 
-self_base="initial_fast_module"
+self_base="reduce_data_module"
 > $OUTDIR/logs/$self_base.log
 > $OUTDIR/logs/job_pids.log
 
@@ -31,16 +31,8 @@ pids_out=()
 dead=()
 
 script_list=(
-             #"d_unallocated_filecarve.sh"
-             #"d_slack_filecarve.sh"
-             #"d_strings.sh"
-             #"sorter.sh"
-             #"dlldump.sh"
-             #"dumpfiles_exe.sh"
-             #"dumpfiles_dll.sh"
-             #"m_strings.sh"
-             "filescan.sh"
-             "timeline.sh"
+             "reduce_carved_files.sh"
+             "hash_carved_files.sh"
              )
 
 # IDEA - add elapsed time tracking for each script.
