@@ -15,10 +15,9 @@ else
     echo "Directory $OUTDIR/carving/volatility/ already exists - moving on..."
 fi
 
-# If volatility OUTDIR is not empty, inform user and exit - else, continue
+# If volatility OUTDIR is not empty, inform user and continue
 if [ "$(ls -A $OUTDIR'/carving/volatility')" ]; then
     echo "Directory $OUTDIR/carving/volatility/ not empty - moving on for now..."
-    #exit 1
 else
     echo "Directory $OUTDIR/carving/volatility/ is empty - let's fill it up!"
 fi

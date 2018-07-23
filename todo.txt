@@ -2,7 +2,7 @@ AUTOMATED:
 + Gather most recent nsrl or baseline md5deep list and index
   + hfind -i <nsrl-md5 OR md5sum> <hashlist>
 
-- targeted artifact acquisition
+- targeted artifact acquisition & processing
   - plaso / log2timeline.py
   + fls + memory timeline
   - image_export.py
@@ -21,10 +21,9 @@ AUTOMATED:
     - if exists, mount each VSS:
       - dump unallocated + slack, repeat file carving
       - strings output for disk
-      - grab hiberfil.sys, rebuild memory image, repeat file carving + strings (PLASO / LOG2TIMELINE)
   + sorter - compare nsrl to disk image --> carve + sort all files (excluding nsrl)
   + tsk_recover
-  + hash carved files
+  - hash carved files
   - Compare carved hashes to good hash list (sorter does not do this for files that have no metadata or filename data)
 
 - AV Checks

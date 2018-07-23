@@ -18,6 +18,7 @@ else
 fi
 
 > $OUTDIR/logs/session.log
+> $OUTDIR/logs/job_pids.log
 
 echo "----------"
 echo "Running scripts in: $lib"
@@ -33,11 +34,17 @@ script_list=(
              "d_slack_filecarve.sh"
              "d_strings.sh"
              "sorter.sh"
-             "m_filecarve.sh"
+             "dlldump.sh"
+             "dumpfiles_exe.sh"
+             "dumpfiles_dll.sh"
              "m_strings.sh"
              "filescan.sh"
              "timeline.sh"
              )
+
+# IDEA - add elapsed time tracking for each script.
+# IDEA - add PID name tracking for DEAD and FINISHED jobs
+# ISSUES - cleanup / kill exited processes
 
 for script in "${script_list[@]}"
 do
@@ -45,6 +52,7 @@ do
     $lib/$script $conf > $OUTDIR/logs/$meta.log 2>&1 &
     sleep 1
     pids_in+=("$!")
+    echo "$!" >> $OUTDIR/logs/job_pids.log
     echo "JOB: $script - PID $! - writing to $OUTDIR/logs/$meta.log" | tee -a $OUTDIR/logs/session.log
 done
 
@@ -57,7 +65,7 @@ while [ ! ${#pids_in[@]} -eq 0 ]; do
 
     for pid in ${pids_in[@]}
     do
-        if ps -p "$pid" > /dev/null; then
+        if ps -p $pid > /dev/null; then
             pid_name=$(ps -p $pid -o comm=)
             echo "JOB: $pid_name - PID: $pid - RUNNING" | tee -a $OUTDIR/logs/session.log
             pids_out+=("$pid")
@@ -73,9 +81,7 @@ while [ ! ${#pids_in[@]} -eq 0 ]; do
 
     for pid in ${pids_in[@]}
     do
-        #echo $pid
-        if [[ ! " ${pids_out[@]} " =~ " ${pid} " ]]; then
-        #    #echo "JOB: $pid_name - PID: $pid - FINISHED"
+        if [[ ! "${pids_out[@]}" =~ "${pid}" ]]; then
             echo "PID: $pid - FINISHED" | tee -a $OUTDIR/logs/session.log
             dead+=("$pid")
         fi
@@ -86,3 +92,4 @@ while [ ! ${#pids_in[@]} -eq 0 ]; do
     echo "----------" >> $OUTDIR/logs/session.log
     sleep 5
 done
+
