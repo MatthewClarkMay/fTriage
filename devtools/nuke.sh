@@ -7,7 +7,7 @@ else
     source $1
 fi
 
-#rm -rf $OUTDIR
+rm -rf $OUTDIR
 rm -rf $OUTDIR/carving/
 #rm -rf $OUTDIR/carving/foremost
 #rm -rf $OUTDIR/carving/volatility
