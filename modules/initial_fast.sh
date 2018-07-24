@@ -48,6 +48,7 @@ dead=()
 # IDEA - add PID name tracking for DEAD and FINISHED jobs
 # ISSUES - cleanup / kill exited processes
   # NOTE - longer sleep time = bigger window to exit and miss bg procs
+  # NOTE - exiting prevents appending new children to pid.log - cleanup at exit
   # IDEA - use `pgrep -P $pid` to find all child procs of that pid
     # NOTE - find additional children of those children until no more are found
 
@@ -65,21 +66,21 @@ echo "----------" | tee -a $OUTDIR/logs/$self_base.log
 
 while [ ! "${#pids_in[@]}" -eq 0 ]; do
     clear
-    head -"${#script_list[@]}" $OUTDIR/logs/$self_base.log | tee -a $OUTDIR/logs/$self_base.log
-    echo "----------" | tee -a $OUTDIR/logs/$self_base.log
+    head -"${#script_list[@]}" $OUTDIR/logs/$self_base.log
+    echo "----------"
 
     for pid in "${pids_in[@]}"
     do
         if ps -p $pid > /dev/null; then
             pid_command=$(ps -p $pid -o comm=)
-            echo "PID: $pid - JOB: $pid_command - RUNNING" | tee -a $OUTDIR/logs/$self_base.log
+            echo "PID: $pid - JOB: $pid_command - RUNNING"
             cpids=$(pgrep -P $pid)
             if [ ! "${#cpids[@]}" -eq 0 ]; then
                 for cpid in ${cpids[@]} # "${cpids[@]}" --> error process ID list syntax error + ps usage
                 do
                     echo "$cpid" >> $OUTDIR/logs/pids.log
                     cname=$(ps -p $cpid -o comm=)
-                    echo "PID: $cpid - CHILD: $cname - RUNNING" | tee -a $OUTDIR/logs/$self_base.log
+                    echo "PID: $cpid - CHILD: $cname - RUNNING"
                 done
             fi
             pids_out+=("$pid")
@@ -89,21 +90,20 @@ while [ ! "${#pids_in[@]}" -eq 0 ]; do
     if [ ! "${#dead[@]}" -eq 0 ]; then
         for pid in "${dead[@]}"
         do
-            echo "PID: $pid - DEAD" | tee -a $OUTDIR/logs/$self_base.log
+            echo "PID: $pid - DEAD"
         done
     fi
 
     for pid in "${pids_in[@]}"
     do
         if [[ ! "${pids_out[@]}" =~ "${pid}" ]]; then
-            echo "PID: $pid - FINISHED" | tee -a $OUTDIR/logs/$self_base.log
+            echo "PID: $pid - FINISHED"
             dead+=("$pid")
         fi
     done
     
     pids_in=("${pids_out[@]}")
     unset pids_out
-    echo "----------" >> $OUTDIR/logs/$self_base.log
     sleep 10
 done
 
