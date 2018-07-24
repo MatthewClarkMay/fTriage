@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ $# -ne 1 ] || [ ! -f $1 ]; then
-    echo "ERROR - usage: $0 /path/to/ftriage.conf"
+    echo "ERROR - usage: $0 ftriage.conf"
     exit 1
 else
     source $1
@@ -18,7 +18,7 @@ fi
 # If sorter OUTDIR is not empty, inform user and exit
 if [ "$(ls -A $OUTDIR'/carving/sorter')" ]; then
     echo "Directory $OUTDIR/carving/sorter is not empty, clear it out before filling it up - moving on for now..."
-    #exit 1
+    exit 1
 else
     echo "$OUTDIR/carving/sorter is empty - let's fill it up!"
     echo "Running sorter now using $WHITE_HASH_IDX"
@@ -29,10 +29,3 @@ else
         exit 1 
     fi
 fi
-
-#if [ -f "$OUTDIR/carving/sorter/audit.txt" ]; then
-#    echo ""
-#    egrep '(FILES EXTRACTED|:=)' $OUTDIR/carving/foremost_unallocated/audit.txt
-#else
-#    echo "File $OUTDIR/carving/foremost_unallocated/audit.txt does not exist..."
-#fi

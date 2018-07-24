@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ $# -ne 1 ] || [ ! -f $1 ]; then
-    echo "ERROR - usage: $0 /path/to/ftriage.conf"
+    echo "ERROR - usage: $0 ftriage.conf"
     exit 1
 else
     source $1
@@ -56,18 +56,19 @@ else
 fi
 
 # If unfiltered mactime timeline file does not exist, create it - else, continue
-if [ ! -f "$OUTDIR/timeline/timeline.csv" ]; then
-    echo "Creating timeline.csv..."
-    mactime -z UTC -y -d -b $BODYFILE $TIMELINE_START..$TIMELINE_END > $OUTDIR/timeline/timeline.csv
+if [ ! -f "$OUTDIR/supertimeline/supertimeline.csv" ]; then
+    echo "Creating supertimeline.csv..."
+    mactime -z UTC -y -d -b $BODYFILE $TIMELINE_START..$TIMELINE_END > $OUTDIR/supertimeline/supertimeline.csv
 else
-    echo "File timeline.csv already exists - replacing now..."
-    mactime -z UTC -y -d -b $BODYFILE $TIMELINE_START..$TIMELINE_END > $OUTDIR/timeline/timeline.csv
+    echo "File supertimeline.csv already exists - exiting now..."
+    #echo "File supertimeline.csv already exists - replacing now..."
+    #mactime -z UTC -y -d -b $BODYFILE $TIMELINE_START..$TIMELINE_END > $OUTDIR/supertimeline/supertimeline.csv
 fi    
 
-if [ -f "$OUTDIR/timeline/timeline.csv" ] && [ -f $TIMELINE_REDUCE ]; then
-    echo "Creating timeline-filtered.csv..."
-    grep -v -i -f $TIMELINE_REDUCE $OUTDIR/timeline/timeline.csv > $OUTDIR/timeline/timeline-filtered.csv
+if [ -f "$OUTDIR/supertimeline/supertimeline.csv" ] && [ -f $TIMELINE_REDUCE ]; then
+    echo "Creating supertimeline-filtered.csv..."
+    grep -v -i -f $TIMELINE_REDUCE $OUTDIR/supertimeline/supertimeline.csv > $OUTDIR/supertimeline/supertimeline-filtered.csv
 else   
-    echo "File timeline.csv does not exist, or $TIMELINE_REDUCE does not exist - exiting..."
+    echo "File supertimeline.csv does not exist, or $TIMELINE_REDUCE does not exist - exiting..."
     exit 1
 fi

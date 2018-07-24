@@ -1,7 +1,7 @@
 #!/bin/bash 
 
 if [ $# -ne 2 ] || [ ! -f $1 ] || [ ! -d $2 ]; then
-    echo "ERROR - usage: $0 /path/to/ftriage.conf /path/to/ftriage/lib"
+    echo "ERROR - usage: $0 ftriage.conf /ftriage/lib/"
     exit 1
 else
     source $1
@@ -27,9 +27,9 @@ echo "Using configuration file: $conf"
 echo "----------"
 
 script_list=(
-             "d_unallocated_filecarve.sh"
+             "d_unallocated_foremost.sh"
              "tsk_recover.sh"
-             "d_slack_filecarve.sh"
+             "d_slack_foremost.sh"
              "d_strings.sh"
              "sorter.sh"
              "dlldump.sh"

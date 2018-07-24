@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ $# -ne 1 ] || [ ! -f $1 ]; then
-    echo "ERROR - usage: $0 /path/to/ftriage.conf"
+    echo "ERROR - usage: $0 ftriage.conf"
     exit 1
 else
     source $1
@@ -60,8 +60,9 @@ if [ ! -f "$OUTDIR/timeline/timeline.csv" ]; then
     echo "Creating timeline.csv..."
     mactime -z UTC -y -d -b $BODYFILE $TIMELINE_START..$TIMELINE_END > $OUTDIR/timeline/timeline.csv
 else
-    echo "File timeline.csv already exists - replacing now..."
-    mactime -z UTC -y -d -b $BODYFILE $TIMELINE_START..$TIMELINE_END > $OUTDIR/timeline/timeline.csv
+    echo "File timeline.csv already exists - exiting now..."
+    #echo "File timeline.csv already exists - replacing now..."
+    #mactime -z UTC -y -d -b $BODYFILE $TIMELINE_START..$TIMELINE_END > $OUTDIR/timeline/timeline.csv
 fi    
 
 if [ -f "$OUTDIR/timeline/timeline.csv" ] && [ -f $TIMELINE_REDUCE ]; then

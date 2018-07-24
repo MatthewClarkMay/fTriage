@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ $# -ne 1 ] || [ ! -f $1 ]; then
-    echo "ERROR - usage: $0 /path/to/ftriage.conf"
+    echo "ERROR - usage: $0 ftriage.conf"
     exit 1
 else
     source $1
@@ -17,7 +17,7 @@ fi
 
 # If blkls.unallocated dump does not exist, create it - else, continue
 if [ ! -f "$OUTDIR/carving/$HOSTNAME.blkls.unallocated" ]; then
-    echo 'Dumping unallocated space...'
+    echo "Dumping unallocated space..."
     blkls $DISKPATH > $OUTDIR/carving/$HOSTNAME.blkls.unallocated
 else
     echo "File $OUTDIR/carving/$HOSTNAME.blkls.unallocated already exists - moving on..."
@@ -32,13 +32,12 @@ else
     echo 'Carving files from unallocated space...'
 
     foremost -q -o $OUTDIR/carving/foremost_unallocated -c $FOREMOST_CONF $OUTDIR/carving/$HOSTNAME.blkls.unallocated
-    #foremost -q -o $OUTDIR/carving/foremost $OUTDIR/carving/$HOSTNAME.blkls
-    #foremost -q -b 4096 -o $OUTDIR/carving/foremost -c /usr/local/etc/foremost.conf $OUTDIR/carving/$HOSTNAME.blkls
+    #foremost -q -b 4096 -o $OUTDIR/carving/foremost_unallocated -c /usr/local/etc/foremost.conf $OUTDIR/carving/$HOSTNAME.blkls
 fi
 
 if [ -f "$OUTDIR/carving/foremost_unallocated/audit.txt" ]; then
     echo ""
-    egrep '(FILES EXTRACTED|:=)' $OUTDIR/carving/foremost_unallocated/audit.txt
+    egrep "(FILES EXTRACTED|:=)" $OUTDIR/carving/foremost_unallocated/audit.txt
     echo "--------------"
 else
     echo "File $OUTDIR/carving/foremost_unallocated/audit.txt does not exist..."

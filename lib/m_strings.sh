@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ $# -ne 1 ] || [ ! -f $1 ]; then
-    echo "ERROR - usage: $0 /path/to/ftriage.conf"
+    echo "ERROR - usage: $0 ftriage.conf"
     exit 1
 else
     source $1
