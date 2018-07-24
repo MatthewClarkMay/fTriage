@@ -40,17 +40,17 @@ script_list=(
              "timeline.sh"
              )
 
-pids_in=()
-pids_out=()
-dead=()
-
-# IDEA - add elapsed time tracking for each script.
 # IDEA - add PID name tracking for DEAD and FINISHED jobs
 # ISSUES - cleanup / kill exited processes
   # NOTE - longer sleep time = bigger window to exit and miss bg procs
   # NOTE - exiting prevents appending new children to pids.log - cleanup at exit
   # IDEA - use `pgrep -P $pid` to find all child procs of that pid
     # NOTE - find additional children of those children until no more are found
+
+pids_in=()
+pids_out=()
+dead=()
+start_time="$(date -u +%s)"
 
 for script in "${script_list[@]}"
 do
@@ -78,9 +78,15 @@ while [ ! "${#pids_in[@]}" -eq 0 ]; do
             if [ ! "${#cpids[@]}" -eq 0 ]; then
                 for cpid in ${cpids[@]} # "${cpids[@]}" --> error process ID list syntax error + ps usage
                 do
-                    echo "$cpid" >> $OUTDIR/logs/pids.log # building pids.log perpetually, need logic to check this
-                    cname=$(ps -p $cpid -o comm=)
-                    echo "PID: $cpid - CHILD: $cname - RUNNING"
+                    if ! grep $cpid $OUTDIR/logs/pids.log > /dev/null; then
+                        echo $cpid >> $OUTDIR/logs/pids.log
+                        cname=$(ps -p $cpid -o comm=)
+                        echo "PID: $cpid - CHILD: $cname - RUNNING"
+                    else
+                        cname=$(ps -p $cpid -o comm=)
+                        echo "PID: $cpid - CHILD: $cname - RUNNING"
+                    fi
+
                 done
             fi
             pids_out+=("$pid")
@@ -104,6 +110,11 @@ while [ ! "${#pids_in[@]}" -eq 0 ]; do
     
     pids_in=("${pids_out[@]}")
     unset pids_out
+
+    end_time="$(date -u +%s)"
+    elapsed="$(($end_time-$start_time))"
+    echo "----------"
+    echo "ELAPSED SECONDS: $elapsed"
     sleep 10
 done
 
