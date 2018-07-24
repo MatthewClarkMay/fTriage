@@ -48,7 +48,7 @@ dead=()
 # IDEA - add PID name tracking for DEAD and FINISHED jobs
 # ISSUES - cleanup / kill exited processes
   # NOTE - longer sleep time = bigger window to exit and miss bg procs
-  # NOTE - exiting prevents appending new children to pid.log - cleanup at exit
+  # NOTE - exiting prevents appending new children to pids.log - cleanup at exit
   # IDEA - use `pgrep -P $pid` to find all child procs of that pid
     # NOTE - find additional children of those children until no more are found
 
@@ -78,7 +78,7 @@ while [ ! "${#pids_in[@]}" -eq 0 ]; do
             if [ ! "${#cpids[@]}" -eq 0 ]; then
                 for cpid in ${cpids[@]} # "${cpids[@]}" --> error process ID list syntax error + ps usage
                 do
-                    echo "$cpid" >> $OUTDIR/logs/pids.log
+                    echo "$cpid" >> $OUTDIR/logs/pids.log # building pids.log perpetually, need logic to check this
                     cname=$(ps -p $cpid -o comm=)
                     echo "PID: $cpid - CHILD: $cname - RUNNING"
                 done
