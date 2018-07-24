@@ -86,7 +86,6 @@ while [ ! "${#pids_in[@]}" -eq 0 ]; do
                         cname=$(ps -p $cpid -o comm=)
                         echo "PID: $cpid - CHILD: $cname - RUNNING"
                     fi
-
                 done
             fi
             pids_out+=("$pid")
