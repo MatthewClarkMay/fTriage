@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ $# -ne 1 ]; then
-    echo "$0: usage: pkiller.sh <PID>"
+    echo "$0: usage: pkiller.sh <PID LIST>"
     exit 1
 else
     for pid in $(cat $1)
