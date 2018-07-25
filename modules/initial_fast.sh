@@ -1,5 +1,22 @@
 #!/bin/bash 
 
+# Author:
+# Matt May <mcmay.web@gmail.com>
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not
+# use this file except in compliance with the License.  You may obtain a
+# copy of
+# the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+# License for the specific language governing permissions and limitations
+# under the License.
+
 if [ $# -ne 2 ] || [ ! -f $1 ] || [ ! -d $2 ]; then
     echo "ERROR - usage: $0 ftriage.conf /ftriage/lib/"
     exit 1
@@ -20,6 +37,16 @@ fi
 self_base="initial_fast_module"
 > $OUTDIR/logs/$self_base.log
 > $OUTDIR/logs/pids.log
+
+trap ctrl_c INT
+function ctrl_c() {
+    echo ""
+    echo "** Trapped Interrupt **"
+    echo "** Cleaning up jobs **"
+    echo "----------"
+    $FTRIAGE/devtools/pkiller.sh $OUTDIR/logs/pids.log | tee -a $OUTDIR/logs/$self_base.log
+    exit 1
+}
 
 echo "----------"
 echo "Running scripts in: $lib"
@@ -43,7 +70,6 @@ script_list=(
 # IDEA - add PID name tracking for DEAD and FINISHED jobs
 # ISSUES - cleanup / kill exited processes
   # NOTE - longer sleep time = bigger window to exit and miss bg procs
-  # NOTE - exiting prevents appending new children to pids.log - cleanup at exit
   # IDEA - use `pgrep -P $pid` to find all child procs of that pid
     # NOTE - find additional children of those children until no more are found
 
@@ -56,7 +82,6 @@ for script in "${script_list[@]}"
 do
     meta=$(echo $script | cut -f 1 -d ".")
     $lib/$script $conf > $OUTDIR/logs/$meta.log 2>&1 &
-    sleep 1
     pids_in+=("$!")
     echo "$!" >> $OUTDIR/logs/pids.log
     echo "PID: $! - JOB: $script - writing to $OUTDIR/logs/$meta.log" | tee -a $OUTDIR/logs/$self_base.log
@@ -114,6 +139,7 @@ while [ ! "${#pids_in[@]}" -eq 0 ]; do
     elapsed="$(($end_time-$start_time))"
     echo "----------"
     echo "ELAPSED SECONDS: $elapsed"
+
     sleep 10
 done
 
