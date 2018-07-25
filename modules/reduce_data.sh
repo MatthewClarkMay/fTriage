@@ -15,15 +15,42 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-if [ $# -ne 2 ] || [ ! -f $1 ] || [ ! -d $2 ]; then
-    echo "ERROR - usage: $0 ftriage.conf /ftriage/lib/"
+if [ $# -ne 1 ] || [ ! -f $1 ]; then # || [ ! -d $2 ]; then
+    echo "ERROR - usage: $0 ftriage.conf" #/ftriage/lib/"
     exit 1
 else
     source $1
 fi
 
 conf=$(realpath $1)
-lib=$(realpath $2)
+lib=$(realpath "$FTRIAGE/lib")
+#lib=$(realpath $2)
+
+function secs_to_mins() {
+    num=$1
+    min=0
+    hour=0
+    day=0
+    if((num>59));then
+        ((sec=num%60))
+        ((num=num/60))
+        if((num>59));then
+            ((min=num%60))
+            ((num=num/60))
+            if((num>23));then
+                ((hour=num%24))
+                ((day=num/24))
+            else
+                ((hour=num))
+            fi
+        else
+            ((min=num))
+        fi
+    else
+        ((sec=num))
+    fi
+    echo "$day"d "$hour"h "$min"m "$sec"s
+}
 
 if [ ! -d "$OUTDIR/logs" ]; then
     mkdir -p $OUTDIR/logs
@@ -36,9 +63,10 @@ self_base="initial_fast_module"
 > $OUTDIR/logs/$self_base.log
 > $OUTDIR/logs/pids.log
 
-trap ctrl_c INT
-function ctrl_c() {
+trap cleanup SIGINT SIGQUIT SIGHUP
+function cleanup() {
     echo ""
+    echo "----------"
     echo "** Trapped Interrupt **"
     echo "** Cleaning up jobs **"
     echo "----------"
@@ -54,8 +82,9 @@ echo "----------"
 script_list=(
             "reduce_carved_files.sh"
             "hash_carved_files.sh"
-             )
+            )
 
+# IDEA - use screen to start processes so fg works
 # IDEA - add PID name tracking for DEAD and FINISHED jobs
 # ISSUES - cleanup / kill exited processes
   # NOTE - longer sleep time = bigger window to exit and miss bg procs
@@ -125,10 +154,11 @@ while [ ! "${#pids_in[@]}" -eq 0 ]; do
     unset pids_out
 
     end_time="$(date -u +%s)"
-    elapsed="$(($end_time-$start_time))"
+    elapsed_seconds=$((end_time - start_time))
+    elapsed_minutes=$(secs_to_mins "$elapsed_seconds")
     echo "----------"
-    echo "ELAPSED SECONDS: $elapsed"
+    echo "ELAPSED TIME: $elapsed_minutes"
 
-    sleep 10
+    sleep 7
 done
 
