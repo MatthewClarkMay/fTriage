@@ -40,6 +40,8 @@ else
     strings -a -t d -e l $MEMPATH >> $OUTDIR/carving/m_strings_audit.txt
     echo "Sorting m_strings_audit.txt into m_strings_audit_sorted.txt"
     sort -u $OUTDIR/carving/m_strings_audit.txt > $OUTDIR/carving/m_strings_audit_sorted.txt
+    echo "Enriching strings with process info and virtual addresses into m_vol_strings.txt"
+    vol.py --profile=$PROFILE -f $MEMPATH strings -s $OUTDIR/carving/m_strings_audit.txt --output-file=$OUTDIR/carving/m_vol_strings.txt -S
 fi
 
 if [ -f "$OUTDIR/carving/m_strings_audit.txt" ]; then
