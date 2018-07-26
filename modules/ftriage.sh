@@ -15,16 +15,16 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-if [ $# -ne 1 ] || [ ! -f $1 ]; then # || [ ! -d $2 ]; then
-    echo "ERROR - usage: $0 ftriage.conf" #/ftriage/lib/"
+if [ $# -ne 2 ] || [ ! -f $1 ] || [ ! -f $2 ]; then
+    echo "ERROR - usage: $0 ftriage.conf scriptlist.conf"
     exit 1
 else
     source $1
+    source $2
 fi
 
 conf=$(realpath $1)
 lib=$(realpath "$FTRIAGE/lib")
-#lib=$(realpath $2)
 
 function secs_to_mins() {
     num=$1
@@ -78,21 +78,6 @@ echo "----------"
 echo "Running scripts in: $lib"
 echo "Using configuration file: $conf"
 echo "----------"
-
-script_list=(
-             #"d_unallocated_foremost.sh"
-             #"tsk_recover.sh"
-             #"d_slack_foremost.sh"
-             #"d_strings.sh"
-             #"sorter.sh"
-             #"dlldump.sh"
-             #"dumpfiles_exe.sh"
-             #"dumpfiles_dll.sh"
-             #"m_strings.sh"
-             #"filescan.sh"
-             #"timeline.sh"
-             "supertimeline.sh"
-             )
 
 # IDEA - use screen to start processes so fg works
 # IDEA - add PID name tracking for DEAD and FINISHED jobs
