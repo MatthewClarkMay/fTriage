@@ -3,7 +3,7 @@ AUTOMATED:
   + hfind -i <nsrl-md5 OR md5sum> <hashlist>
 
 - targeted artifact acquisition & processing
-  - plaso / log2timeline.py
+  + plaso / log2timeline.py
   + fls + memory timeline
   - image_export.py
 
@@ -17,10 +17,7 @@ AUTOMATED:
     + vol.py dlldump
   + Strings output for disk 
   + Strings output for memory
-  - VSS
-    - if exists, mount each VSS:
-      - dump unallocated + slack, repeat file carving
-      - strings output for disk
+  + VSS
   + sorter - compare nsrl to disk image --> carve + sort all files (excluding nsrl)
   + tsk_recover
   - hash carved files
