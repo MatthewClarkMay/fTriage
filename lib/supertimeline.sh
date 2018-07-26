@@ -56,12 +56,12 @@ fi
 
 if [ ! -f "$OUTDIR/supertimeline/supertimeline.csv" ]; then
     echo "Creating $OUTDIR/supertimeline/supertimeline.csv..."
-    psort.py -z $TIMEZONE -o L2tcsv $OUTDIR/supertimeline/$HOSTNAME.plaso "date > $SUPERTIMELINE_START AND date < $SUPERTIMELINE_END" > $OUTDIR/supertimeline/supertimeline.csv
+    psort.py -z $TIMEZONE -o L2tcsv $OUTDIR/supertimeline/$HOSTNAME.plaso "date > '$SUPERTIMELINE_START' AND date < '$SUPERTIMELINE_END'" -w $OUTDIR/supertimeline/supertimeline.csv
 else   
     echo "File $OUTDIR/supertimeline/supertimeline.csv already exists - moving on..."
 fi
 
-if [ ! -f "$OUTDIR/supertimeline/supertimeline-filtered.csv" ] && [ -f $TIMELINE_REDUCE ]; then
+if  [ -f "$OUTDIR/supertimeline/supertimeline.csv" ] && [ -f "$TIMELINE_REDUCE" ] && [ ! -f "$OUTDIR/supertimeline/supertimeline-filtered.csv" ]; then
     echo "Creating supertimeline-filtered.csv..."
     grep -v -i -f $TIMELINE_REDUCE $OUTDIR/supertimeline/supertimeline.csv > $OUTDIR/supertimeline/supertimeline-filtered.csv
 else   

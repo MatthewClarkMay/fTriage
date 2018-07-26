@@ -28,4 +28,8 @@ else
             sleep .01
         fi
     done
+    if pgrep log2timeline > /dev/null; then
+        echo "stray log2timeline processes found, killing indiscriminately..."
+        pkill --signal SIGKILL log2timeline
+    fi
 fi

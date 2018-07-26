@@ -80,7 +80,7 @@ else
     #mactime -z UTC -y -d -b $BODYFILE $TIMELINE_START..$TIMELINE_END > $OUTDIR/timeline/timeline.csv
 fi    
 
-if [ -f "$OUTDIR/timeline/timeline.csv" ] && [ -f $TIMELINE_REDUCE ]; then
+if [ -f "$OUTDIR/timeline/timeline.csv" ] && [ -f $TIMELINE_REDUCE ] && [ ! -f $OUTDIR/timeline/timeline-filtered.csv ]; then
     echo "Creating timeline-filtered.csv..."
     grep -v -i -f $TIMELINE_REDUCE $OUTDIR/timeline/timeline.csv > $OUTDIR/timeline/timeline-filtered.csv
 else   
