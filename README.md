@@ -23,12 +23,12 @@ unzip rds_modernm.zip
 ```
 
 ### lib (targeted scripts)
-- dlldump.sh: Runs the Volatility dlldump command.  
-- d_slack_foremost.sh: Uses blkls to dump and redirect all slack space into a file, then runs foremost against the blkls slack file. Also outputs a snippit from the audit results.  
-- d_strings.sh: Runs strings against the disk image and sorts the output.  
-- dumpfiles_dll.sh: Runs the Volatility dumpfiles command searching for .dll files via regex.  
-- dumpfiles_exe.sh: Runs the Volatility dumpfiles command searching for .exe files via regex.   
-- d_unallocated_foremost.sh: Uses blkls to dump and redirect all unallocated space into a file, then runs foremost against the blkls unallocated file. Also outputs a snippit from the audit results.  
+- **dlldump.sh:** Runs the Volatility dlldump command.  
+- **d_slack_foremost.sh:** Uses blkls to dump and redirect all slack space into a file, then runs foremost against the blkls slack file. Also outputs a snippit from the audit results.  
+- **d_strings.sh:** Runs strings against the disk image and sorts the output.  
+- **dumpfiles_dll.sh:** Runs the Volatility dumpfiles command searching for .dll files via regex.  
+- **dumpfiles_exe.sh:** Runs the Volatility dumpfiles command searching for .exe files via regex.   
+- **d_unallocated_foremost.sh:** Uses blkls to dump and redirect all unallocated space into a file, then runs foremost against the blkls unallocated file. Also outputs a snippit from the audit results.  
 - filescan: Runs the Volatility filescan command and saves the output in a file.  
 - hash_carved_files.sh: Builds md5 hash lists of carved files in $OUTDIR.  
 - imageinfo.sh: Runs the Volatility imageinfo command - usually used in initial setup stages to determine our memory $PROFILE variable.  
