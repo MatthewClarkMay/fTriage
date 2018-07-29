@@ -40,7 +40,7 @@ unzip rds_modernm.zip
 - **reduce_carved_files.sh:** Moves all carved files from their respective carving output directories into a common directory. 
 - **timeline.sh:** Builds a filesystem and memory timeline using the Volatility timeliner command, fls, mactime, and grep.  
 - **supertimeline.sh:** Builds a SuperTimeline using log2timeline.py, psort.py, and grep.
-- **m_filecarve.sh:** Basically runs dlldump.sh, dumpfiles_dll.sh, and dumpfiles_exe.sh inline (not as seperate processes in the background). This was split this into individual scripts so they could each be run separately and backgrounded by the wrapper.  
+- **m_filecarve.sh:** Basically runs dlldump.sh, dumpfiles_dll.sh, and dumpfiles_exe.sh inline (not as seperate processes in the background). This was split into individual scripts so they could each be run separately and backgrounded by the wrapper.  
 
 Most (if not all) of these scripts produce logs in some form or another - these can be found in the $OUTDIR/logs/ directory.
 
