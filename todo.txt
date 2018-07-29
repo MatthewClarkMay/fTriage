@@ -5,7 +5,8 @@ AUTOMATED:
 - targeted artifact acquisition & processing
   + plaso / log2timeline.py
   + fls + memory timeline
-  - image_export.py
+  + image_export.py - cold disk image
+  - image_export.py - hot mounted disk
 
 - Prep Evidence / Data Reduction
   + Carve EXE and DLL files from disk using foremost
@@ -20,7 +21,7 @@ AUTOMATED:
   + VSS
   + sorter - compare nsrl to disk image --> carve + sort all files (excluding nsrl)
   + tsk_recover
-  - hash carved files
+  - hash carved files - needs tweaking
   - Compare carved hashes to good hash list (sorter does not do this for files that have no metadata or filename data)
 
 - AV Checks
