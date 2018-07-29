@@ -44,6 +44,7 @@ if [ "$(ls -A $OUTDIR'/image_export')" ]; then
     exit 1
 else
     echo "Directory $OUTDIR/image_export/ is empty - let's fill it up!"
-    image_export.py --logfile $OUTDIR/logs/image_export.log -f $EXPORTFILTER --vss_stores all -w $OUTDIR/image_export/ $DISKPATH
+    image_export.py -f $EXPORTFILTER --vss_stores all -w $OUTDIR/image_export/ $DISKPATH
+    #image_export.py --logfile $OUTDIR/logs/image_export.log -f $EXPORTFILTER --vss_stores all -w $OUTDIR/image_export/ $DISKPATH
 fi
 
