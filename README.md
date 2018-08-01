@@ -31,7 +31,8 @@ cd /ftriage/3rd_party/
 #NOTE: each bulk acquisition will probably generate 30-80GB content, keep that in mind
 
 ./ftriage/modules/ftriage.sh ./ftriage/conf/ftriage.conf ./ftriage/modules/scriptlists/bulk.conf &&
-./ftriage/modules/ftriage.sh ./ftriage/conf/ftriage.conf ./ftriage/modules/scriptlists/reduce_data.conf
+./ftriage/modules/ftriage.sh ./ftriage/conf/ftriage.conf ./ftriage/modules/scriptlists/reduce_data.conf &&
+./ftriage/lib/densityscout.sh ./ftriage/conf/ftriage.conf
 ```
 
 ### lib (targeted scripts)
@@ -51,6 +52,7 @@ cd /ftriage/3rd_party/
 - **reduce_carved_files.sh:** Moves all carved files from their respective carving output directories into a common directory. 
 - **timeline.sh:** Builds a filesystem and memory timeline using the Volatility timeliner command, fls, mactime, and grep.  
 - **supertimeline.sh:** Builds a SuperTimeline using log2timeline.py, psort.py, and grep.
+- **densityscout.sh:** Runs densityscout against all carved + reduced EXEs/DLLs, and against image_export/Windows and image_export/Users  
 
 Most (if not all) of these scripts produce logs in some form or another - these can be found in the $OUTDIR/logs/ directory.
 
