@@ -22,14 +22,6 @@ else
     source $1
 fi
 
-# if $OUTDIR/logs/ does not exist, create it - else, continue
-if [ ! -d "$OUTDIR/logs" ]; then
-    mkdir -p $OUTDIR/logs
-    echo "Directory $OUTDIR/logs/ does not exist - creating now..."
-else
-    echo "Directory $OUTDIR/logs/ already exists - moving on..."
-fi
-
 # If supertimeline OUTDIR does not exist, create it - else, continue 
 if [ ! -d "$OUTDIR/supertimeline" ]; then
     echo "$OUTDIR/supertimeline/ does not exist - creating it now..."
@@ -48,8 +40,7 @@ fi
 # If $HOSTNAME.plaso file does not exist, create it - else, continue
 if [ ! -f "$OUTDIR/supertimeline/$HOSTNAME.plaso" ]; then
     echo "Creating $OUTDIR/supertimeline/$HOSTNAME.plaso..."
-    #log2timeline.py --no-dependencies-check --vss_stores all --logfile $OUTDIR/logs/log2timeline.txt $OUTDIR/supertimeline/$HOSTNAME.plaso $DISKPATH
-    log2timeline.py --no-dependencies-check -f $L2TFILTER --vss_stores all --logfile $OUTDIR/logs/log2timeline.txt $OUTDIR/supertimeline/$HOSTNAME.plaso $DISKPATH
+    log2timeline.py --no-dependencies-check -f $L2TFILTER --vss_stores all $OUTDIR/supertimeline/$HOSTNAME.plaso $DISKPATH
 else
     echo "File $OUTDIR/supertimeline/$HOSTNAME.plaso already exists - moving on..."
 fi    
@@ -63,7 +54,7 @@ fi
 
 if  [ -f "$OUTDIR/supertimeline/supertimeline.csv" ] && [ -f "$TIMELINE_REDUCE" ] && [ ! -f "$OUTDIR/supertimeline/supertimeline-filtered.csv" ]; then
     echo "Creating supertimeline-filtered.csv..."
-    grep -v -i -f $TIMELINE_REDUCE $OUTDIR/supertimeline/supertimeline.csv > $OUTDIR/supertimeline/supertimeline-filtered.csv
+    grep -a -v -i -f $TIMELINE_REDUCE $OUTDIR/supertimeline/supertimeline.csv > $OUTDIR/supertimeline/supertimeline-filtered.csv
 else   
     echo "File $OUTDIR/supertimeline/supertimeline-filtered.csv already exists, or $TIMELINE_REDUCE does not exist - exiting..."
     exit 1

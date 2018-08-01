@@ -22,30 +22,30 @@ else
     source $1
 fi
 
-# If $OUTDIR/carving does not exist, create it - else, continue 
-if [ ! -d "$OUTDIR/carving/" ]; then
-    echo "Directory $OUTDIR/carving/ does not exist - creating it now..."
-    mkdir -p $OUTDIR/carving/
+# If $OUTDIR/carving/strings/ does not exist, create it - else, continue 
+if [ ! -d "$OUTDIR/carving/strings" ]; then
+    echo "Directory $OUTDIR/carving/strings/ does not exist - creating it now..."
+    mkdir -p $OUTDIR/carving/strings
 else
-    echo "Directory $OUTDIR/carving/ already exists - moving on..."
+    echo "Directory $OUTDIR/carving/strings/ already exists - moving on..."
 fi
 
-# if $OUTDIR/m_strings_audit_sorted.txt already exists, move on - else, create it
-if [ -f "$OUTDIR/carving/m_strings_audit_sorted.txt" ]; then
-    echo "File $OUTDIR/m_strings_audit_sorted.txt already exists - moving on..."
+# if $OUTDIR/carving/strings/m_strings_audit_sorted.txt already exists, move on - else, create and run through volatility strings enrichment
+if [ -f "$OUTDIR/carving/strings/m_strings_audit_sorted.txt" ]; then
+    echo "File $OUTDIR/carving/strings/m_strings_audit_sorted.txt already exists - moving on..."
 else
     echo "Searching for strings...(1)"
-    strings -a -t d $MEMPATH > $OUTDIR/carving/m_strings_audit.txt
+    strings -a -t d $MEMPATH > $OUTDIR/carving/strings/m_strings_audit.txt
     echo "Searching for strings...(2)"
-    strings -a -t d -e l $MEMPATH >> $OUTDIR/carving/m_strings_audit.txt
+    strings -a -t d -e l $MEMPATH >> $OUTDIR/carving/strings/m_strings_audit.txt
     echo "Sorting m_strings_audit.txt into m_strings_audit_sorted.txt"
-    sort -u $OUTDIR/carving/m_strings_audit.txt > $OUTDIR/carving/m_strings_audit_sorted.txt
-    echo "Enriching strings with process info and virtual addresses into m_vol_strings.txt"
-    vol.py --profile=$PROFILE -f $MEMPATH strings -s $OUTDIR/carving/m_strings_audit.txt --output-file=$OUTDIR/carving/m_vol_strings.txt -S
+    sort -u $OUTDIR/carving/strings/m_strings_audit.txt > $OUTDIR/carving/strings/m_strings_audit_sorted.txt
+    echo "Enriching strings with process info and virtual addresses into m_strings_vol.txt"
+    vol.py --profile=$PROFILE -f $MEMPATH strings -s $OUTDIR/carving/strings/m_strings_audit.txt --output-file=$OUTDIR/carving/strings/m_strings_vol.txt -S
 fi
 
-if [ -f "$OUTDIR/carving/m_strings_audit.txt" ]; then
-    rm $OUTDIR/carving/m_strings_audit.txt
+if [ -f "$OUTDIR/carving/strings/m_strings_audit.txt" ]; then
+    rm $OUTDIR/carving/strings/m_strings_audit.txt
 else
     exit 1
 fi

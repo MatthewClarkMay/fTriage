@@ -1,6 +1,7 @@
 AUTOMATED:
 + Gather most recent nsrl or baseline md5deep list and index
   + hfind -i <nsrl-md5 OR md5sum> <hashlist>
++ download 3rd party tools
 
 - targeted artifact acquisition & processing
   + plaso / log2timeline.py
@@ -30,7 +31,11 @@ AUTOMATED:
 
 SEMI-AUTOMATED:
 - Evidence of Persistence
+  - autoruns - windows only
 - Packing / Entropy Check
+  - densityscout - linux
+  - pescan - linux & windows
+  - sigcheck - windows only
 - Logs
 - Super Timeline Analysis
 

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash 
 
 # Author:
 # Matt May <mcmay.web@gmail.com>
@@ -15,8 +15,17 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-# https://docs.microsoft.com/en-us/sysinternals/downloads/sigcheck
+if [ $# -ne 1 ] || [ ! -f $1 ]; then
+    echo "ERROR - usage: $0 /path/to/ftriage.conf"
+    exit 1
+else
+    source $1
+fi
 
-wget https://download.sysinternals.com/files/Sigcheck.zip &&
-unzip Sigcheck.zip -d sigcheck &&
-rm -rf Sigcheck.zip
+rm -rf $OUTDIR/carving/$HOSTNAME.blkls.slack 2>/dev/null
+rm -rf $OUTDIR/carving/$HOSTNAME.blkls.unallocated 2>/dev/null
+
+rm -rf $OUTDIR/timeline/fls.bodyfile 2>/dev/null
+rm -rf $OUTDIR/timeline/vol-timeliner.bodyfile 2>/dev/null
+rm -rf $OUTDIR/timeline/fls-vol-timeliner.bodyfile 2>/dev/null
+

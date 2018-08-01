@@ -22,14 +22,6 @@ else
     source $1
 fi
 
-# if $OUTDIR/logs/ does not exist, create it - else, continue
-if [ ! -d "$OUTDIR/logs" ]; then
-    mkdir -p $OUTDIR/logs
-    echo "Directory $OUTDIR/logs/ does not exist - creating now..."
-else
-    echo "Directory $OUTDIR/logs/ already exists - moving on..."
-fi
-
 # If supertimeline OUTDIR does not exist, create it - else, continue 
 if [ ! -d "$OUTDIR/image_export" ]; then
     echo "$OUTDIR/image_export/ does not exist - creating it now..."
@@ -45,6 +37,5 @@ if [ "$(ls -A $OUTDIR'/image_export')" ]; then
 else
     echo "Directory $OUTDIR/image_export/ is empty - let's fill it up!"
     image_export.py -f $EXPORTFILTER --vss_stores all -w $OUTDIR/image_export/ $DISKPATH
-    #image_export.py --logfile $OUTDIR/logs/image_export.log -f $EXPORTFILTER --vss_stores all -w $OUTDIR/image_export/ $DISKPATH
 fi
 

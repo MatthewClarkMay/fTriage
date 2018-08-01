@@ -98,3 +98,5 @@ else
     echo "Copying files from $OUTDIR/carving/volatility/dumpfiles_exe/ to $OUTDIR/carving/reduced_exes"
     cp $OUTDIR/carving/volatility/dumpfiles_exe/* $OUTDIR/carving/reduced_exes
 fi
+
+fdupes -dN $OUTDIR/carving/reduced_exes

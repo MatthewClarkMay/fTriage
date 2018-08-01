@@ -59,9 +59,9 @@ else
     echo "Directory $OUTDIR/logs/ already exists - moving on..."
 fi
 
-self_base="initial_fast_module"
-> $OUTDIR/logs/$self_base.log
-> $OUTDIR/logs/pids.log
+self_base="ftriage"
+#> $OUTDIR/logs/$self_base.log
+#> $OUTDIR/logs/pids.log
 
 trap cleanup SIGINT SIGQUIT SIGHUP
 function cleanup() {
@@ -71,6 +71,7 @@ function cleanup() {
     echo "** Cleaning up jobs **"
     echo "----------"
     $FTRIAGE/devtools/pkiller.sh $OUTDIR/logs/pids.log | tee -a $OUTDIR/logs/$self_base.log
+    rm -rf $OUTDIR/logs/Worker_*_log2timeline.txt
     exit 1
 }
 
@@ -81,7 +82,8 @@ echo "----------"
 
 # IDEA - use screen to start processes so fg works
 # IDEA - add PID name tracking for DEAD and FINISHED jobs
-# ISSUES - cleanup / kill exited processes
+# ISSUE - 
+# ISSUE - cleanup / kill exited processes
   # NOTE - longer sleep time = bigger window to exit and miss bg procs
   # IDEA - use `pgrep -P $pid` to find all child procs of that pid
     # NOTE - find additional children of those children until no more are found
@@ -157,3 +159,4 @@ while [ ! "${#pids_in[@]}" -eq 0 ]; do
     sleep 7
 done
 
+rm -rf $OUTDIR/logs/Worker_*_log2timeline.txt

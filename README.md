@@ -7,18 +7,27 @@ fTriage leverages dozens of popular, open source tools to triage suspect memory/
 ```
 sudo ./ftriage/dependencies.sh
 ```
-2. Download NSRL hashlist if you will not be providing your own via baseline build + md5deep.
+2. Download NSRL hashlist if you will not be providing your own via baseline build + md5deep:
 ```
-cd /opt/ftriage/lists/nsrl/
+cd /ftriage/lists/nsrl/
 ./pull.sh
 unzip rds_modernm.zip
 ./build_nsrl_idx.sh
 ```
+3. Download 3rd party tools - These tools aren't yet integrated with fTriage, but they will be eventually and the scripts are nice shortcuts so we don't need to browse to the download site(s):
+```
+cd /ftriage/3rd_party/
+./wget_autoruns.sh
+./wget_sigcheck.sh
+./wget_pescan.sh
+#NOTE: pescan requires a license from tzworks, you can request one by emailing "info@tzworks.net" or filling out the "demo" form at "https://www.tzworks.net/store/product_page.php"
+```  
 3. edit /ftriage/conf/ftriage.conf and make sure all variables have been filled in.
 4. run scripts individually, or prebuilt modules.
 
 ### Recommended Usage
 ```
+#NOTE: each bulk acquisition will probably generate 30-80GB content, keep that in mind
 ./ftriage/modules/ftriage.sh ./ftriage/conf/ftriage.conf ./ftriage/modules/scriptlists/bulk.conf &&
 ./ftriage/modules/ftriage.sh ./ftriage/conf/ftriage.conf ./ftriage/modules/scriptlists/reduce_data.conf
 ```
@@ -40,7 +49,6 @@ unzip rds_modernm.zip
 - **reduce_carved_files.sh:** Moves all carved files from their respective carving output directories into a common directory. 
 - **timeline.sh:** Builds a filesystem and memory timeline using the Volatility timeliner command, fls, mactime, and grep.  
 - **supertimeline.sh:** Builds a SuperTimeline using log2timeline.py, psort.py, and grep.
-- **m_filecarve.sh:** Basically runs dlldump.sh, dumpfiles_dll.sh, and dumpfiles_exe.sh inline (not as seperate processes in the background). This was split into individual scripts so they could each be run separately and backgrounded by the wrapper.  
 
 Most (if not all) of these scripts produce logs in some form or another - these can be found in the $OUTDIR/logs/ directory.
 
