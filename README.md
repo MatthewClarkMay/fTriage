@@ -16,11 +16,12 @@ unzip rds_modernm.zip
 ```
 3. Download 3rd party tools - These tools aren't yet integrated with fTriage, but they will be eventually and the scripts are nice shortcuts so we don't need to browse to the download site(s):
 ```
+#NOTE: pescan requires a license from tzworks, you can request one by emailing "info@tzworks.net" or filling out the "demo" form at "https://www.tzworks.net/store/product_page.php"
+
 cd /ftriage/3rd_party/
+./wget_pescan.sh
 ./wget_autoruns.sh
 ./wget_sigcheck.sh
-./wget_pescan.sh
-#NOTE: pescan requires a license from tzworks, you can request one by emailing "info@tzworks.net" or filling out the "demo" form at "https://www.tzworks.net/store/product_page.php"
 ```  
 3. edit /ftriage/conf/ftriage.conf and make sure all variables have been filled in.
 4. run scripts individually, or prebuilt modules.
@@ -28,6 +29,7 @@ cd /ftriage/3rd_party/
 ### Recommended Usage
 ```
 #NOTE: each bulk acquisition will probably generate 30-80GB content, keep that in mind
+
 ./ftriage/modules/ftriage.sh ./ftriage/conf/ftriage.conf ./ftriage/modules/scriptlists/bulk.conf &&
 ./ftriage/modules/ftriage.sh ./ftriage/conf/ftriage.conf ./ftriage/modules/scriptlists/reduce_data.conf
 ```
