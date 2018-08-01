@@ -1,4 +1,4 @@
-Automating forensic artifact acquisition, reduction, and analysis.  
+Automating forensic artifact extraction, reduction, and analysis.  
 
 fTriage leverages dozens of popular, open source tools to triage suspect memory/disk images. Each script automates a step in the investigation an analyst would otherwise perform manually. Moreover, I've written a wrapper to execute collections of data acquisition scripts. There is no limit to how many scripts you can run at once, but naturally there are some that need to be run before others, review the "Recommended Usage" section for example usage of prebuilt script lists.
 
