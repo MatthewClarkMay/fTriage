@@ -22,6 +22,7 @@ cd /ftriage/3rd_party/
 ./wget_pescan.sh
 ./wget_autoruns.sh
 ./wget_sigcheck.sh
+cp ~/<license> /ftriage/3rd_party/pescan*-*
 ```  
 3. edit /ftriage/conf/ftriage.conf and make sure all variables have been filled in.
 4. run scripts individually, or prebuilt modules.
@@ -31,8 +32,8 @@ cd /ftriage/3rd_party/
 #NOTE: each bulk acquisition will probably generate 30-80GB content, keep that in mind
 
 ./ftriage/modules/ftriage.sh ./ftriage/conf/ftriage.conf ./ftriage/modules/scriptlists/bulk.conf &&
-./ftriage/modules/ftriage.sh ./ftriage/conf/ftriage.conf ./ftriage/modules/scriptlists/reduce_data.conf &&
-./ftriage/lib/densityscout.sh ./ftriage/conf/ftriage.conf
+./ftriage/lib/reduce_carved_files.sh ./ftriage/conf/ftriage.conf &&
+./ftriage/modules/ftriage.sh ./ftriage/conf/ftriage.conf ./ftriage/modules/scriptlists/process_reduced_files.conf
 ```
 
 ### lib (targeted scripts)

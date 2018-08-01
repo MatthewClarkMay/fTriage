@@ -15,7 +15,12 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-script_list=(
-            "reduce_carved_files.sh"
-            "hash_carved_files.sh"
-            )
+# https://tzworks.net/download_links.php - tzworks downloads page
+# https://tzworks.net/prototype_page.php?proto_id=32 - August 2018 package build
+
+wget https://www.tzworks.net/prototypes/builds/2018.07.28.lin64.zip
+unzip *lin64.zip
+chmod -R +x *lin64
+#mkdir tzworks_package_2018-07-28_lin64 && unzip 2018.07.28.lin64.zip -d tzworks_package_2018-07-28_lin64
+
+rm -rf *lin64.zip

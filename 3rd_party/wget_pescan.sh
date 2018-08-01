@@ -17,8 +17,6 @@
 
 # https://tzworks.net/prototype_page.php?proto_id=15 - pescan webpage
 # https://tzworks.net/prototypes/pescan/pescan.users.guide.pdf
-# https://tzworks.net/download_links.php - tzworks downloads page
-# https://tzworks.net/prototype_page.php?proto_id=32 - August 2018 package build
 
 #wget https://www.tzworks.net/prototypes/pescan/pescan32.v.0.43.win.zip &&
 #unzip pescan32.v.0.43.win.zip -d pescan32-win
@@ -34,4 +32,3 @@ mkdir pescan64-lin && tar xzvf pescan64.v.0.43.lin.tar.gz -C pescan64-lin
 
 #rm -rf pescan*win.zip
 rm -rf pescan*lin.tar.gz
-
