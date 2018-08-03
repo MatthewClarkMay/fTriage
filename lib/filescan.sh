@@ -23,12 +23,7 @@ else
 fi
 
 # If volatility OUTDIR does not exist, create it - else, continue 
-if [ ! -d "$OUTDIR/carving/volatility" ]; then
-    echo "Directory $OUTDIR/carving/volatility/ does not exist - creating it now..."
-    mkdir -p $OUTDIR/carving/volatility
-else
-    echo "Directory $OUTDIR/carving/volatility/ already exists - moving on..."
-fi
+build_outdir "$OUTDIR/carving/volatility"
 
 # If volatility OUTDIR is not empty, inform user and continue
 if [ "$(ls -A $OUTDIR'/carving/volatility')" ]; then

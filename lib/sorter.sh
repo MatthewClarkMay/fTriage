@@ -23,24 +23,15 @@ else
 fi
 
 # If sorter OUTDIR does not exist, create it - else, continue 
-if [ ! -d "$OUTDIR/carving/sorter" ]; then
-    echo "$OUTDIR/carving/sorter does not exist - creating it now..."
-    mkdir -p $OUTDIR/carving/sorter
-else
-    echo "Directory $OUTDIR/carving/sorter already exists - moving on..."
-fi
+build_outdir "$OUTDIR/carving/sorter"
 
 # If sorter OUTDIR is not empty, inform user and exit
-if [ "$(ls -A $OUTDIR'/carving/sorter')" ]; then
-    echo "Directory $OUTDIR/carving/sorter is not empty, clear it out before filling it up - moving on for now..."
-    exit 1
+if_not_empty_exit_else_continue "$OUTDIR/carving/sorter"
+
+echo "Running sorter now using $WHITE_HASH_IDX"
+if [ -f "$WHITE_HASH_IDX" ]; then
+    sorter -U -s -m C: -x $WHITE_HASH_IDX -d $OUTDIR/carving/sorter -C $SORTER_CONF $DISKPATH
 else
-    echo "$OUTDIR/carving/sorter is empty - let's fill it up!"
-    echo "Running sorter now using $WHITE_HASH_IDX"
-    if [ -f "$WHITE_HASH_IDX" ]; then
-        sorter -U -s -m C: -x $WHITE_HASH_IDX -d $OUTDIR/carving/sorter -C $SORTER_CONF $DISKPATH
-    else
-        echo "$WHITE_HASH_IDX does not exist - exiting now..."
-        exit 1 
-    fi
+    echo "$WHITE_HASH_IDX does not exist - exiting now..."
+    exit 1 
 fi

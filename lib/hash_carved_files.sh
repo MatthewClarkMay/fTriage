@@ -8,20 +8,10 @@ else
 fi
 
 # If directory $OUTDIR/carving/hashlists does not exist, create it - else, continue
-if [ ! -d "$OUTDIR/carving/hashlists" ]; then
-    echo "$OUTDIR/carving/hashlists/ does not exist - creating it now..."
-    mkdir -p $OUTDIR/carving/hashlists
-else
-    echo "Directory $OUTDIR/carving/hashlists/ already exists - moving on..."
-fi
+build_outdir "$OUTDIR/carving/hashlists"
 
 # If directory $OUTDIR/carving/hashlists is not empty, inform user and exit - else, continue
-if [ "$(ls -A $OUTDIR'/carving/hashlists')" ]; then
-    echo "Directory $OUTDIR/carving/hashlists/ is not empty, clear it out before filling it up - exiting for now..."
-    exit 1
-else
-    echo "Directory $OUTDIR/carving/hashlists/ is empty, let's fill it up!"
-fi
+if_not_empty_exit_else_continue "$OUTDIR/carving/hashlists"
 
 # If directory $OUTDIR/carving/foremost_unallocated exists and contains directories, hash their contents - else, continue
 if [ -d "$OUTDIR/carving/foremost_unallocated" ] && [ "$(ls -A $OUTDIR'/carving/foremost_unallocated')" ]; then

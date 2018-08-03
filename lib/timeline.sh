@@ -23,12 +23,7 @@ else
 fi
 
 # If timeline OUTDIR does not exist, create it - else, continue 
-if [ ! -d "$OUTDIR/timeline" ]; then
-    echo "$OUTDIR/timeline/ does not exist - creating it now..."
-    mkdir -p $OUTDIR/timeline
-else
-    echo "Directory $OUTDIR/timeline/ already exists - moving on..."
-fi
+build_outdir "$OUTDIR/timeline"
 
 # If fls bodyfile does not exist, create it - else, continue
 if [ ! -f "$OUTDIR/timeline/fls.bodyfile" ] && [ -f "$DISKPATH" ]; then

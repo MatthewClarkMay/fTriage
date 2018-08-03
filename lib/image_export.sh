@@ -23,19 +23,10 @@ else
 fi
 
 # If supertimeline OUTDIR does not exist, create it - else, continue 
-if [ ! -d "$OUTDIR/image_export" ]; then
-    echo "$OUTDIR/image_export/ does not exist - creating it now..."
-    mkdir -p $OUTDIR/image_export
-else
-    echo "Directory $OUTDIR/image_export/ already exists - moving on..."
-fi
+build_outdir "$OUTDIR/image_export"
 
 # If $OUTDIR/foremost_slack is not empty, inform user and exit
-if [ "$(ls -A $OUTDIR'/image_export')" ]; then
-    echo "Directory $OUTDIR/image_export/ is not empty, clear it out before filling it up - exiting for now..."
-    exit 1
-else
-    echo "Directory $OUTDIR/image_export/ is empty - let's fill it up!"
-    image_export.py -f $EXPORTFILTER --vss_stores all -w $OUTDIR/image_export/ $DISKPATH
-fi
+if_not_empty_exit_else_continue "$OUTDIR/image_export"
+
+image_export.py -f $EXPORTFILTER --vss_stores all -w $OUTDIR/image_export/ $DISKPATH
 

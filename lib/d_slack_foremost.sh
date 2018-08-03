@@ -23,12 +23,7 @@ else
 fi
 
 # If foremost_slack OUTDIR does not exist, create it - else, continue 
-if [ ! -d "$OUTDIR/carving/foremost_slack" ]; then
-    echo "$OUTDIR/carving/foremost_slack does not exist - creating it now..."
-    mkdir -p $OUTDIR/carving/foremost_slack
-else
-    echo "Directory $OUTDIR/carving/foremost_slack already exists - moving on..."
-fi
+build_outdir "$OUTDIR/carving/foremost_slack"
 
 # If blkls.slack dump does not exist, create it - else, continue
 if [ ! -f "$OUTDIR/carving/$HOSTNAME.blkls.slack" ]; then
@@ -39,16 +34,11 @@ else
 fi    
 
 # If $OUTDIR/foremost_slack is not empty, inform user and exit
-if [ "$(ls -A $OUTDIR'/carving/foremost_slack')" ]; then
-    echo "Directory $OUTDIR/carving/foremost_slack is not empty, clear it out before filling it up - moving on for now..."
-    #exit 1
-else
-    echo "$OUTDIR/carving/foremost_slack is empty - let's fill it up!"
-    echo "Carving files from slack space..."
+if_not_empty_exit_else_continue "$OUTDIR/carving/foremost_slack"
 
-    foremost -q -o $OUTDIR/carving/foremost_slack -c $FOREMOST_CONF $OUTDIR/carving/$HOSTNAME.blkls.slack
-    #foremost -q -b 4096 -o $OUTDIR/carving/foremost_slack -c /usr/local/etc/foremost.conf $OUTDIR/carving/$HOSTNAME.blkls
-fi
+echo "Carving files from slack space..."
+foremost -q -o $OUTDIR/carving/foremost_slack -c $FOREMOST_CONF $OUTDIR/carving/$HOSTNAME.blkls.slack
+#foremost -q -b 4096 -o $OUTDIR/carving/foremost_slack -c /usr/local/etc/foremost.conf $OUTDIR/carving/$HOSTNAME.blkls
 
 if [ -f "$OUTDIR/carving/foremost_slack/audit.txt" ]; then
     echo ""

@@ -23,12 +23,7 @@ else
 fi
 
 # If supertimeline OUTDIR does not exist, create it - else, continue 
-if [ ! -d "$OUTDIR/supertimeline" ]; then
-    echo "$OUTDIR/supertimeline/ does not exist - creating it now..."
-    mkdir -p $OUTDIR/supertimeline
-else
-    echo "Directory $OUTDIR/supertimeline/ already exists - moving on..."
-fi
+build_outdir "$OUTDIR/supertimeline"
 
 if [[ $SUPERTIMELINE_START =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] && [[ $SUPERTIMELINE_END =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
     echo "Date $SUPERTIMELINE_START and $SUPERTIMELINE_END are both in the correct format (YYYY-MM-DD) - moving on..."

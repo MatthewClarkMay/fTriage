@@ -23,29 +23,24 @@ else
 fi
 
 # If $OUTDIR/carving/strings/ does not exist, create it - else, continue 
-if [ ! -d "$OUTDIR/carving/strings" ]; then
-    echo "Directory $OUTDIR/carving/strings/ does not exist - creating it now..."
-    mkdir -p $OUTDIR/carving/strings
-else
-    echo "Directory $OUTDIR/carving/strings/ already exists - moving on..."
-fi
+build_outdir "$OUTDIR/carving/strings"
 
-# if $OUTDIR/carving/strings/m_strings_audit_sorted.txt already exists, move on - else, create and run through volatility strings enrichment
-if [ -f "$OUTDIR/carving/strings/m_strings_audit_sorted.txt" ]; then
-    echo "File $OUTDIR/carving/strings/m_strings_audit_sorted.txt already exists - moving on..."
+# if $OUTDIR/carving/strings/m_strings_sorted.txt already exists, move on - else, create and run through volatility strings enrichment
+if [ -f "$OUTDIR/carving/strings/m_strings_sorted.txt" ]; then
+    echo "File $OUTDIR/carving/strings/m_strings_sorted.txt already exists - moving on..."
 else
     echo "Searching for strings...(1)"
-    strings -a -t d $MEMPATH > $OUTDIR/carving/strings/m_strings_audit.txt
+    strings -a -t d $MEMPATH > $OUTDIR/carving/strings/m_strings.txt
     echo "Searching for strings...(2)"
-    strings -a -t d -e l $MEMPATH >> $OUTDIR/carving/strings/m_strings_audit.txt
-    echo "Sorting m_strings_audit.txt into m_strings_audit_sorted.txt"
-    sort -u $OUTDIR/carving/strings/m_strings_audit.txt > $OUTDIR/carving/strings/m_strings_audit_sorted.txt
+    strings -a -t d -e l $MEMPATH >> $OUTDIR/carving/strings/m_strings.txt
+    echo "Sorting m_strings.txt into m_strings_sorted.txt"
+    sort -u $OUTDIR/carving/strings/m_strings.txt > $OUTDIR/carving/strings/m_strings_sorted.txt
     echo "Enriching strings with process info and virtual addresses into m_strings_vol.txt"
-    vol.py --profile=$PROFILE -f $MEMPATH strings -s $OUTDIR/carving/strings/m_strings_audit.txt --output-file=$OUTDIR/carving/strings/m_strings_vol.txt -S
+    vol.py --profile=$PROFILE -f $MEMPATH strings -s $OUTDIR/carving/strings/m_strings.txt --output-file=$OUTDIR/carving/strings/m_strings_vol.txt -S
 fi
 
-if [ -f "$OUTDIR/carving/strings/m_strings_audit.txt" ]; then
-    rm $OUTDIR/carving/strings/m_strings_audit.txt
+if [ -f "$OUTDIR/carving/strings/m_strings.txt" ]; then
+    rm $OUTDIR/carving/strings/m_strings.txt
 else
     exit 1
 fi

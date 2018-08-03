@@ -23,18 +23,10 @@ else
 fi
 
 # If volatility/dumpfiles_exe OUTDIR does not exist, create it - else, continue
-if [ ! -d "$OUTDIR/carving/volatility/dumpfiles_exe" ]; then
-    echo "Directory $OUTDIR/carving/volatility/dumpfiles_exe/ does not exist - creating it now..."
-    mkdir -p $OUTDIR/carving/volatility/dumpfiles_exe
-else
-    echo "Directory $OUTDIR/carving/volatility/dumpfiles_exe/ already exists - moving on..."
-fi
+build_outdir "$OUTDIR/carving/volatility/dumpfiles_exe"
 
 # If volatility/dumpfiles_exe OUTDIR is not empty, inform user and continue - else, dump EXEs
-if [ "$(ls -A $OUTDIR'/carving/volatility/dumpfiles_exe')" ]; then
-    echo "Directory $OUTDIR/carving/volatility/dumpfiles_exe not empty - moving on for now..."
-else
-    echo "Directory $OUTDIR/carving/volatility/dumpfiles_exe is empty - let's fill it up!"
-    echo "Carving EXEs..."
-    vol.py --profile=$PROFILE -f $MEMPATH dumpfiles -n -i -r \\.exe --dump-dir=$OUTDIR/carving/volatility/dumpfiles_exe | tee $OUTDIR/carving/volatility/dumpfiles_exe_audit.txt
-fi
+if_not_empty_exit_else_continue "$OUTDIR/carving/volatility/dumpfiles_exe"
+
+echo "Carving EXEs..."
+vol.py --profile=$PROFILE -f $MEMPATH dumpfiles -n -i -r \\.exe --dump-dir=$OUTDIR/carving/volatility/dumpfiles_exe | tee $OUTDIR/carving/volatility/dumpfiles_exe_audit.txt

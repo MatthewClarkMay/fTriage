@@ -15,6 +15,13 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+# Possible output formats for files carved
+# win7-32-nromanoff-c-drive.E01-37873-128-4.pdf - sorter
+# win7-32-nromanoff-c-drive.E01-55118-128-1.exe - sorter
+# 00282684.exe - foremost
+# module.2840.7fb36a60.75680000.dll - dlldump
+# file.208.0x85e91b48.cmd.exe.img - dumpfiles
+
 if [ $# -ne 1 ] || [ ! -f $1 ]; then
     echo "ERROR - usage: $0 ftriage.conf"
     exit 1
@@ -23,21 +30,10 @@ else
 fi
 
 # If $OUTDIR/carving/reduced_exes/ does not exist, create it - else, continue 
-if [ ! -d "$OUTDIR/carving/reduced_exes" ]; then
-    echo "Directory $OUTDIR/carving/reduced_exes does not exist - creating it now..."
-    mkdir -p $OUTDIR/carving/reduced_exes
-else
-    echo ""
-    echo "Directory $OUTDIR/carving/reduced_exes/ already exists - moving on..."
-fi
+build_outdir "$OUTDIR/carving/reduced_exes"
 
 # If $OUTDIR/carving/reduced_exes/ not empty, inform user and exit - else,
-if [ "$(ls -A $OUTDIR'/carving/reduced_exes')" ]; then
-    echo "Directory $OUTDIR/carving/reduced_exes/ is not empty, clear it out before filling it up - exiting now..."
-    exit 1
-else
-    echo "$OUTDIR/carving/reduced_exes/ is empty - let's fill it up!"
-fi
+if_not_empty_exit_else_continue "$OUTDIR/carving/reduced_exes"
 
 # If $OUTDIR/carving/sorter/ exists, move carved files to reduced_exes
 if [ ! -d "$OUTDIR/carving/sorter" ]; then

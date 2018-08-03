@@ -22,13 +22,7 @@ else
     source $1
 fi
 
-# if $OUTDIR/carving/densityscout does not exist, inform user and create it - else, continue
-if [ ! -d "$OUTDIR/carving/densityscout" ]; then
-    echo "Directory $OUTDIR/carving/densityscout/ does not exist - creating now..."
-    mkdir -p $OUTDIR/carving/densityscout
-else
-    echo "Directory $OUTDIR/carving/densityscout/ already exists - moving on..."
-fi
+build_outdir "$OUTDIR/carving/densityscout"
 
 # if $OUTDIR/carving/reduced_exes does not exist, inform user and exit - else, check density of contents
 if [ ! -d "$OUTDIR/carving/reduced_exes" ] || [ -f $OUTDIR/carving/densityscout/densityscout_reduced_exes.txt ]; then
