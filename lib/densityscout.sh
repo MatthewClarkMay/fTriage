@@ -26,12 +26,12 @@ build_outdir "$OUTDIR/carving/densityscout"
 
 # if $OUTDIR/carving/reduced_exes does not exist, inform user and exit - else, check density of contents
 if [ ! -d "$OUTDIR/carving/reduced_exes" ] || [ -f $OUTDIR/carving/densityscout/densityscout_reduced_exes.txt ]; then
-    echo "Directory $OUTDIR/carving/reduced_exes does not exist, or $OUTDIR/carving/densityscout_reduced_exes.txt already exists, must run /ftriage/lib/reduce_carved_files.sh first - exiting now..."
+    echo "Directory $OUTDIR/carving/reduced_exes does not exist, or $OUTDIR/carving/densityscout/densityscout_reduced_exes.txt already exists, must run /ftriage/lib/reduce_carved_files.sh first - exiting now..."
     exit 1
 else
     echo "Directory $OUTDIR/carving/reduced_exes exists, checking density of contents..."
-    densityscout -p $DENSITY -o $OUTDIR/carving/densityscout/densityscout_reduced_exes.txt $OUTDIR/carving/reduced_exes | tee "$OUTDIR"/carving/densityscout/densityscout_"$DENSITY"_reduced_exes_.txt
-    #densityscout -pe -p $DENSITY -o $OUTDIR/carving/densityscout/densityscout_reduced_exes.txt $OUTDIR/carving/reduced_exes | tee "$OUTDIR"/carving/densityscout/densityscout_"$DENSITY"_reduced_exes_.txt
+    densityscout -p $DENSITY -o $OUTDIR/carving/densityscout/densityscout_reduced_exes.txt $OUTDIR/carving/reduced_exes | tee "$OUTDIR"/carving/densityscout/densityscout_"$DENSITY"_reduced_exes.txt
+    #densityscout -pe -p $DENSITY -o $OUTDIR/carving/densityscout/densityscout_reduced_exes.txt $OUTDIR/carving/reduced_exes | tee "$OUTDIR"/carving/densityscout/densityscout_"$DENSITY"_reduced_exes.txt
 fi
 
 # if $OUTDIR/image_export does not exist, inform user and exit - else, check density of contents
