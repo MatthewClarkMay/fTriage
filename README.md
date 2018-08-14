@@ -56,6 +56,7 @@ cp ~/<license> /ftriage/3rd_party/pescan*-*
 - **timeline.sh:** Builds a filesystem and memory timeline using the Volatility timeliner command, fls, mactime, and grep.  
 - **supertimeline.sh:** Builds a SuperTimeline using log2timeline.py, psort.py, and grep.
 - **densityscout.sh:** Runs densityscout against all carved + reduced EXEs/DLLs, and against image_export/Windows and image_export/Users  
+- **analyze_density_results.sh:** Parses output from densityscout.sh, sorter.sh, d_unallocated_foremost.sh, d_slack_foremost.sh, dlldump.sh, dumpfiles_dll.sh, and dumpfiles_exe.sh. Copies carved files with high density to $OUTDIR/carving/high_density_exes/ with original filename appended.
 
 Most (if not all) of these scripts produce logs in some form or another - these can be found in the $OUTDIR/logs/ directory.
 
