@@ -37,7 +37,7 @@ fi
 if_not_empty_exit_else_continue "$OUTDIR/carving/foremost_unallocated"
 
 echo 'Carving files from unallocated space...'
-foremost -q -o $OUTDIR/carving/foremost_unallocated -c $FOREMOST_CONF $OUTDIR/carving/$HOSTNAME.blkls.unallocated
+foremost -o $OUTDIR/carving/foremost_unallocated -c $FOREMOST_CONF $OUTDIR/carving/$HOSTNAME.blkls.unallocated
 #foremost -q -b 4096 -o $OUTDIR/carving/foremost_unallocated -c /usr/local/etc/foremost.conf $OUTDIR/carving/$HOSTNAME.blkls
 
 if [ -f "$OUTDIR/carving/foremost_unallocated/audit.txt" ]; then

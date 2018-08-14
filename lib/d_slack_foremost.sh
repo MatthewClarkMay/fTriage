@@ -37,7 +37,7 @@ fi
 if_not_empty_exit_else_continue "$OUTDIR/carving/foremost_slack"
 
 echo "Carving files from slack space..."
-foremost -q -o $OUTDIR/carving/foremost_slack -c $FOREMOST_CONF $OUTDIR/carving/$HOSTNAME.blkls.slack
+foremost -o $OUTDIR/carving/foremost_slack -c $FOREMOST_CONF $OUTDIR/carving/$HOSTNAME.blkls.slack
 #foremost -q -b 4096 -o $OUTDIR/carving/foremost_slack -c /usr/local/etc/foremost.conf $OUTDIR/carving/$HOSTNAME.blkls
 
 if [ -f "$OUTDIR/carving/foremost_slack/audit.txt" ]; then

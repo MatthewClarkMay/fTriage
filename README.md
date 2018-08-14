@@ -30,17 +30,19 @@ cp ~/<license> /ftriage/3rd_party/pescan*-*
 ### Recommended Usage
 ```
 #NOTE: each bulk acquisition will probably generate 30-80GB content, keep that in mind
+#NOTE: probably going to wrap all this into one script, but I think this helps visualize the process.
 
 ./ftriage/modules/ftriage.sh ./ftriage/conf/ftriage.conf ./ftriage/modules/scriptlists/bulk.conf &&
 ./ftriage/lib/reduce_carved_files.sh ./ftriage/conf/ftriage.conf &&
-./ftriage/modules/ftriage.sh ./ftriage/conf/ftriage.conf ./ftriage/modules/scriptlists/process_reduced_files.conf
+./ftriage/modules/ftriage.sh ./ftriage/conf/ftriage.conf ./ftriage/modules/scriptlists/process_reduced_files.conf &&
+./ftriage/lib/analyze_density_results.sh ./ftriage/conf/ftriage.conf
 ```
 
 ### lib (targeted scripts)
 - **imageinfo.sh:** Runs the Volatility imageinfo command - usually used in initial setup stages to determine our memory $PROFILE variable.  
 - **image_export.sh:** Runs image_export.py against the disk with a filter file native to the SIFT Workstation. Great initial triage script because it quickly collects key forensic artifacts from a disk image (VSS too) and organizes them neatly. An analyst can start analyzing these forensic artifacts while the more time consuming scripts run (sorter.sh for example can take 30 minutes to several hours depending on hardware).  
 - **sorter.sh:** Runs sorter against the disk with a filter file native to the SIFT Workstation. Accepts an indexed hash white list, usually NSRL or md5deep of baseline.
-- **tsk_recover:** Runs tsk_recover to carve files out of unallocated space.  
+- **tsk_recover.sh:** Runs tsk_recover to carve files out of unallocated space.  
 - **d_unallocated_foremost.sh:** Uses blkls to dump and redirect all unallocated space into a file, then runs foremost against the blkls unallocated file. Also outputs a snippit from the audit results.  
 - **d_slack_foremost.sh:** Uses blkls to dump and redirect all slack space into a file, then runs foremost against the blkls slack file. Also outputs a snippit from the audit results.  
 - **dlldump.sh:** Runs the Volatility dlldump command.  
@@ -59,5 +61,11 @@ Most (if not all) of these scripts produce logs in some form or another - these 
 
 ### modules (wrapper for running an array of scripts)
 - **ftriage.sh:** Wrapper for running scripts in the background and monitoring status.
+
+### devtools
+- **mount_host_shares.sh:** Creates /root/host_shares directory, then mounts all VMware shared folders from host.
+- **nuke.sh:** Script I use to remove various output directories during development.
+- **pkiller.sh:** Used by ftriage.sh to cleanup background scripts.
+- **rm_extra.sh:** Removes excess output files that usually are unnecessary after initial triage.
 
 Suite is still under development, but coming along quickly!

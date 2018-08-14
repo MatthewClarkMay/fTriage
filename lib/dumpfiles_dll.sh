@@ -30,3 +30,7 @@ if_not_empty_exit_else_continue "/carving/volatility/dumpfiles_dll"
 
 echo "Carving DLLs..."
 vol.py --profile=$PROFILE -f $MEMPATH dumpfiles -n -i -r \\.dll --dump-dir=$OUTDIR/carving/volatility/dumpfiles_dll | tee $OUTDIR/carving/volatility/dumpfiles_dll_audit.txt
+
+# ImageSectionObject: Points to memory mapped binaries (exes) - output saved as .img file
+# DataSectionObject: Points to memory mapped data files (such as document data stored by MS process - output saved as .dat file
+# SharedCachedMap: Points to file parts cached by the Windows Cache manager - output saved as .vacb file
