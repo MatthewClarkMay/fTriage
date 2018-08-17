@@ -68,4 +68,7 @@ cp ~/<license> /ftriage/3rd_party/pescan*-*
 - **pkiller.sh:** Used by ftriage.sh to cleanup background scripts.
 - **rm_extra.sh:** Removes excess output files that usually are unnecessary after initial triage.
 
+### Notes
+- Autoruns.exe \& autorunsc.exe usage and references at [my blog](https://bytehacks.com/2018-07-02-CMD-Cheat-Sheet/#autoruns) 
+
 Suite is still under development, but coming along quickly!

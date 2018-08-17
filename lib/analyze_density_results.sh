@@ -31,6 +31,7 @@ build_outdir "$OUTDIR/carving/high_density_exes"
 if_not_empty_exit_else_continue "$OUTDIR/carving/high_density_exes"
 
 echo "Analyzing densityscout results..."
+echo ""
 
 if [ -f "$OUTDIR"/carving/densityscout/densityscout_"$DENSITY"_reduced_exes.txt ]; then
     diskbase=$(basename "$DISKPATH")

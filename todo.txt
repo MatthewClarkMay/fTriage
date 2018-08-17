@@ -31,9 +31,10 @@ AUTOMATED:
 
 SEMI-AUTOMATED:
 - Evidence of Persistence
-  - autoruns - windows only
+  - autoruns - windows only - https://bytehacks.com/2018-07-02-CMD-Cheat-Sheet/#autoruns
+    - parse programmatically?
 - Packing / Entropy Check
-  - densityscout - linux
+  + densityscout - linux
   - pescan - linux & windows
   - sigcheck - windows only
 - Logs
@@ -48,3 +49,5 @@ MANUAL:
 - MFT Anomalies
 - File Time Anomalies
 
+COMPLEMENTARY SKILLS:
+- convert .E01 to .vmdk using xmount or qemu-img (https://forensicswiki.org/wiki/Virtual_machine)
