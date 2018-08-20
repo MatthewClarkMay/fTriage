@@ -3,6 +3,8 @@ AUTOMATED:
   + hfind -i <nsrl-md5 OR md5sum> <hashlist>
 + download 3rd party tools
 
+- automatic imageinfo parsing for memory image?
+
 - targeted artifact acquisition & processing
   + plaso / log2timeline.py
   + fls + memory timeline
@@ -28,8 +30,9 @@ AUTOMATED:
 - AV Checks
 - IOC Search
 - Automated Memory Analysis
-  - malprocfind
+  + malprocfind
   - malfind
+  - etc...
 
 SEMI-AUTOMATED:
 - Evidence of Persistence
