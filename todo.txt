@@ -28,6 +28,8 @@ AUTOMATED:
 - AV Checks
 - IOC Search
 - Automated Memory Analysis
+  - malprocfind
+  - malfind
 
 SEMI-AUTOMATED:
 - Evidence of Persistence
