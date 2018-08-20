@@ -5,7 +5,7 @@ AUTOMATED:
 
 - targeted artifact acquisition & processing
   + plaso / log2timeline.py
-  + fls + memory timeline
+  - fls + memory timeline # hybrid complete, but can still add memory only timeline script
   + image_export.py - cold disk image
   - image_export.py - hot mounted disk
 
@@ -30,6 +30,7 @@ AUTOMATED:
 - Automated Memory Analysis
   - malprocfind
   - malfind
+  - etc: need to browse vol.py -h menu for ideas
 
 SEMI-AUTOMATED:
 - Evidence of Persistence
