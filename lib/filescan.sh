@@ -33,12 +33,12 @@ else
     echo "Directory $OUTDIR/carving/volatility/ is empty - let's fill it up!"
 fi
 
-# If filescan_audit.txt already exists, then inform user and exit - else, create it
-if [ -f "$OUTDIR/carving/volatility/filescan_audit.txt" ]; then
-    echo "filescan_audit.txt already exists - exiting now..."
+# If filescan.txt already exists, then inform user and exit - else, create it
+if [ -f "$OUTDIR/carving/volatility/filescan.txt" ]; then
+    echo "filescan.txt already exists - exiting now..."
     exit 1
 else
-    echo "filescan_audit.txt not detected - creating now..."
-    vol.py --profile=$PROFILE -f $MEMPATH  filescan | tee $OUTDIR/carving/volatility/filescan_audit.txt
+    echo "filescan.txt not detected - creating now..."
+    vol.py --profile=$PROFILE -f $MEMPATH  filescan | tee $OUTDIR/carving/volatility/filescan.txt
 fi
 

@@ -52,12 +52,7 @@ function secs_to_mins() {
     echo "$day"d "$hour"h "$min"m "$sec"s
 }
 
-if [ ! -d "$OUTDIR/logs" ]; then
-    mkdir -p $OUTDIR/logs
-    echo "Directory $OUTDIR/logs/ does not exist - creating now..."
-else
-    echo "Directory $OUTDIR/logs/ already exists - moving on..."
-fi
+build_outdir "$OUTDIR/logs"
 
 self_base="ftriage"
 #> $OUTDIR/logs/$self_base.log

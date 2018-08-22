@@ -41,6 +41,7 @@ cp ~/<license> /ftriage/3rd_party/pescan*-*
 ### lib (targeted scripts)
 - **imageinfo.sh:** Runs the Volatility imageinfo command - usually used in initial setup stages to determine our memory $PROFILE variable.  
 - **malprocfind.sh:** Runs the Volatility malprocfind plugin - Finds malicious processes based on discrepancies from observed, normal behavior and properties. This plugin automates several manual checks performed on every memory image when looking for malware including expected PPID, name permutations, expected path, priority, expected cmdline args, proper user SID, session, time after boot, cmd.exe parent, missing binaries, and abnormal paths.
+- **code_injeciton.sh:** Runs the Volatility malfind plugin (looks for code injection), parses output, and dumps suspect memory sections to disk.
 - **image_export.sh:** Runs image_export.py against the disk with a filter file native to the SIFT Workstation. Great initial triage script because it quickly collects key forensic artifacts from a disk image (VSS too) and organizes them neatly. An analyst can start analyzing these forensic artifacts while the more time consuming scripts run (sorter.sh for example can take 30 minutes to several hours depending on hardware).  
 - **sorter.sh:** Runs sorter against the disk with a filter file native to the SIFT Workstation. Accepts an indexed hash white list, usually NSRL or md5deep of baseline.
 - **tsk_recover.sh:** Runs tsk_recover to carve files out of unallocated space.  
