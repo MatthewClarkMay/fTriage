@@ -9,7 +9,7 @@ sudo ./dependencies.sh
 ```
 2. Download NSRL hashlist if you will not be providing your own via baseline build + md5deep:
 ```
-cd /conf/nsrl/
+cd ./conf/nsrl/
 ./pull.sh
 unzip rds_modernm.zip
 ./build_nsrl_idx.sh
@@ -18,13 +18,13 @@ unzip rds_modernm.zip
 ```
 #NOTE: pescan requires a license from tzworks, you can request one by emailing "info@tzworks.net" or filling out the "demo" form at "https://www.tzworks.net/store/product_page.php"
 
-cd /3rd_party/
+cd ./3rd_party/
 ./wget_pescan.sh
 ./wget_autoruns.sh
 ./wget_sigcheck.sh
-cp ~/<license> /3rd_party/pescan*-*
+cp ~/<license> ./3rd_party/pescan*-*
 ```  
-3. edit /conf/ftriage.conf and make sure all variables have been filled in.
+3. edit ./conf/ftriage.conf and make sure all variables have been filled in.
 4. run modules individually, or in batches using ftriage.sh with modlists.
 
 ### Recommended Usage
@@ -38,8 +38,8 @@ cp ~/<license> /3rd_party/pescan*-*
 ./modules/analysis/analyze_density_results.sh ./conf/ftriage.conf
 ```
 
-### ftriage.sh (wrapper for running an array of modules/scripts)
-- **ftriage.sh:** Wrapper for running modules/scripts in the background and monitoring status. Logs can be found in the $OUTDIR/logs/ directory.
+### ftriage.sh (wrapper for running an array of modules \& scripts)
+- **ftriage.sh:** Wrapper for running modules \& scripts in the background and monitoring status. Logs can be found in the $OUTDIR/logs/ directory.
 
 ### modules (targeted scripts)
 #### disk
