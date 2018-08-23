@@ -55,8 +55,8 @@ function secs_to_mins() {
 build_outdir "$OUTDIR/logs"
 
 self_base="ftriage"
-#> $OUTDIR/logs/$self_base.log
-#> $OUTDIR/logs/pids.log
+> $OUTDIR/logs/$self_base.log
+> $OUTDIR/logs/pids.log
 
 trap cleanup SIGINT SIGQUIT SIGHUP
 function cleanup() {

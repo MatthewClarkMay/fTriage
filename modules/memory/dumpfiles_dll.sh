@@ -26,7 +26,7 @@ fi
 build_outdir "$OUTDIR/carving/volatility/dumpfiles_dll"
 
 # If volatility/dumpfiles_dll OUTDIR is not empty, inform user and continue - else, dump DLLs
-if_not_empty_exit_else_continue "/carving/volatility/dumpfiles_dll"
+if_not_empty_exit_else_continue "$OUTDIR/carving/volatility/dumpfiles_dll"
 
 echo "Carving DLLs..."
 vol.py --profile=$PROFILE -f $MEMPATH dumpfiles -n -i -r \\.dll --dump-dir=$OUTDIR/carving/volatility/dumpfiles_dll | tee $OUTDIR/carving/volatility/dumpfiles_dll_audit.txt
