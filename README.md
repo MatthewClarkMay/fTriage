@@ -1,6 +1,6 @@
 Automating forensic artifact extraction, reduction, and analysis.  
 
-fTriage leverages dozens of popular, open source tools to triage suspect memory/disk images. Each module automates a step in the investigation an analyst would otherwise perform manually. Moreover, I've written a wrapper (ftriage.sh) to execute collections of these modules. There is no limit to how many modules you can run at once, but naturally there are some that need to be run before others, review the "Recommended Usage" section for example usage of prebuilt mod lists.
+fTriage leverages dozens of popular, open source tools to triage suspect memory/disk images. Each module automates a step in the investigation an analyst would otherwise perform manually. Moreover, I've written a wrapper (ftriage.sh) to execute collections of these modules. There is no limit to how many modules you can run at once, but naturally there are some that need to be run before others, review the "Recommended Usage" section for example usage of prebuilt modlists.
 
 ### Setup
 1. Install dependencies:
@@ -9,7 +9,7 @@ sudo ./ftriage/dependencies.sh
 ```
 2. Download NSRL hashlist if you will not be providing your own via baseline build + md5deep:
 ```
-cd /ftriage/lists/nsrl/
+cd /ftriage/conf/nsrl/
 ./pull.sh
 unzip rds_modernm.zip
 ./build_nsrl_idx.sh
