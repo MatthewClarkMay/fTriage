@@ -32,5 +32,5 @@ else
     echo "Finding indicators of process hollowing - Dumping affected memory sections..."
     echo ""
     mkdir $OUTDIR/carving/volatility/code_injection/hollowfind_binaries
-    vol.py --profile=$PROFILE -f $MEMPATH malfind -D $OUTDIR/carving/volatility/code_injection/hollowfind_binaries > $OUTDIR/carving/volatility/code_injection/hollowfind.txt 
+    vol.py --profile=$PROFILE -f $MEMPATH hollowfind -D $OUTDIR/carving/volatility/code_injection/hollowfind_binaries > $OUTDIR/carving/volatility/code_injection/hollowfind.txt 
 fi
