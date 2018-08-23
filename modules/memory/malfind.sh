@@ -24,7 +24,6 @@ fi
 
 # If $OUTDIR/carving/volatility/code_injection does not exist, create it - else, continue 
 build_outdir "$OUTDIR/carving/volatility/code_injection"
-if_not_empty_exit_else_continue "$OUTDIR/carving/volatility/code_injection"
 
 # if $OUTDIR/carving/volatility/code_injection/malfind_raw.txt already exists, move on - else, create it
 if [ -f "$OUTDIR/carving/volatility/code_injection/malfind_raw.txt" ] || [ -d "$OUTDIR/carving/volatility/code_injection/malfind_binaries" ] ; then
