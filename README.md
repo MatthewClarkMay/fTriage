@@ -5,11 +5,11 @@ fTriage leverages dozens of popular, open source tools to triage suspect memory/
 ### Setup
 1. Install dependencies:
 ```
-sudo ./ftriage/dependencies.sh
+sudo ./dependencies.sh
 ```
 2. Download NSRL hashlist if you will not be providing your own via baseline build + md5deep:
 ```
-cd /ftriage/conf/nsrl/
+cd /conf/nsrl/
 ./pull.sh
 unzip rds_modernm.zip
 ./build_nsrl_idx.sh
@@ -18,13 +18,13 @@ unzip rds_modernm.zip
 ```
 #NOTE: pescan requires a license from tzworks, you can request one by emailing "info@tzworks.net" or filling out the "demo" form at "https://www.tzworks.net/store/product_page.php"
 
-cd /ftriage/3rd_party/
+cd /3rd_party/
 ./wget_pescan.sh
 ./wget_autoruns.sh
 ./wget_sigcheck.sh
-cp ~/<license> /ftriage/3rd_party/pescan*-*
+cp ~/<license> /3rd_party/pescan*-*
 ```  
-3. edit /ftriage/conf/ftriage.conf and make sure all variables have been filled in.
+3. edit /conf/ftriage.conf and make sure all variables have been filled in.
 4. run modules individually, or in batches using ftriage.sh with modlists.
 
 ### Recommended Usage
@@ -32,36 +32,42 @@ cp ~/<license> /ftriage/3rd_party/pescan*-*
 #NOTE: each bulk acquisition will probably generate 30-80GB content, keep that in mind
 #NOTE: probably going to wrap all this into one script, but I think this helps visualize the process.
 
-./ftriage/ftriage.sh ./ftriage/conf/ftriage.conf ./ftriage/modlists/bulk.conf &&
-./ftriage/modules/reduce_carved_files.sh ./ftriage/conf/ftriage.conf &&
-./ftriage/ftriage.sh ./ftriage/conf/ftriage.conf ./ftriage/modlists/process_reduced_files.conf &&
-./ftriage/modules/analyze_density_results.sh ./ftriage/conf/ftriage.conf
+./ftriage.sh ./conf/ftriage.conf ./modlists/bulk.conf &&
+./modules/analysis/reduce_carved_files.sh ./conf/ftriage.conf &&
+./ftriage.sh ./conf/ftriage.conf ./modlists/process_reduced_files.conf &&
+./modules/analysis/analyze_density_results.sh ./conf/ftriage.conf
 ```
 
 ### ftriage.sh (wrapper for running an array of modules/scripts)
 - **ftriage.sh:** Wrapper for running modules/scripts in the background and monitoring status. Logs can be found in the $OUTDIR/logs/ directory.
 
 ### modules (targeted scripts)
-- **imageinfo.sh:** Runs the Volatility imageinfo command - usually used in initial setup stages to determine our memory $PROFILE variable.  
-- **malprocfind.sh:** Runs the Volatility malprocfind plugin - Finds malicious processes based on discrepancies from observed, normal behavior and properties. This plugin automates several manual checks performed on every memory image when looking for malware including expected PPID, name permutations, expected path, priority, expected cmdline args, proper user SID, session, time after boot, cmd.exe parent, missing binaries, and abnormal paths.
-- **malfind.sh:** Runs the Volatility malfind plugin (looks for code injection), parses output, and dumps suspect memory sections to disk.
+#### disk
 - **image_export.sh:** Runs image_export.py against the disk with a filter file native to the SIFT Workstation. Great initial triage script because it quickly collects key forensic artifacts from a disk image (VSS too) and organizes them neatly. An analyst can start analyzing these forensic artifacts while the more time consuming scripts run (sorter.sh for example can take 30 minutes to several hours depending on hardware).  
 - **sorter.sh:** Runs sorter against the disk with a filter file native to the SIFT Workstation. Accepts an indexed hash white list, usually NSRL or md5deep of baseline.
 - **tsk_recover.sh:** Runs tsk_recover to carve files out of unallocated space.  
 - **d_unallocated_foremost.sh:** Uses blkls to dump and redirect all unallocated space into a file, then runs foremost against the blkls unallocated file. Also outputs a snippit from the audit results.  
 - **d_slack_foremost.sh:** Uses blkls to dump and redirect all slack space into a file, then runs foremost against the blkls slack file. Also outputs a snippit from the audit results.  
+- **d_strings.sh:** Runs strings against the disk image and sorts the output.  
+- **supertimeline.sh:** Builds a SuperTimeline using log2timeline.py, psort.py, and grep.
+#### memory
+- **imageinfo.sh:** Runs the Volatility imageinfo command - usually used in initial setup stages to determine our memory $PROFILE variable.  
+- **malprocfind.sh:** Runs the Volatility malprocfind plugin - Finds malicious processes based on discrepancies from observed, normal behavior and properties. This plugin automates several manual checks performed on every memory image when looking for malware including expected PPID, name permutations, expected path, priority, expected cmdline args, proper user SID, session, time after boot, cmd.exe parent, missing binaries, and abnormal paths.
+- **malfind.sh:** Runs the Volatility malfind plugin (looks for code injection), parses output, and dumps suspect memory sections to disk.
 - **dlldump.sh:** Runs the Volatility dlldump command.  
 - **dumpfiles_dll.sh:** Runs the Volatility dumpfiles command searching for .dll files via regex.  
 - **dumpfiles_exe.sh:** Runs the Volatility dumpfiles command searching for .exe files via regex.   
-- **d_strings.sh:** Runs strings against the disk image and sorts the output.  
 - **m_strings.sh:** Runs strings against the memory image and sorts the output. Also runs the Volatility strings command to enrich our output with process info and virtual addresses.  
 - **filescan:** Runs the Volatility filescan command and saves the output in a file.  
-- **hash_carved_files.sh:** Builds md5 hash lists of carved files in $OUTDIR.  
-- **reduce_carved_files.sh:** Moves all carved files from their respective carving output directories into a common directory. 
+#### hybrid
 - **timeline.sh:** Builds a filesystem and memory timeline using the Volatility timeliner command, fls, mactime, and grep.  
-- **supertimeline.sh:** Builds a SuperTimeline using log2timeline.py, psort.py, and grep.
+#### analysis
+- **reduce_carved_files.sh:** Moves all carved files from their respective carving output directories into a common directory. 
+- **hash_carved_files.sh:** Builds md5 hash lists of carved files in $OUTDIR.  
 - **densityscout.sh:** Runs densityscout against all carved + reduced EXEs/DLLs, and against image_export/Windows and image_export/Users  
 - **analyze_density_results.sh:** Parses output from densityscout.sh, sorter.sh, d_unallocated_foremost.sh, d_slack_foremost.sh, dlldump.sh, dumpfiles_dll.sh, and dumpfiles_exe.sh. Copies carved files with high density to $OUTDIR/carving/high_density_exes/ with original filename appended.
+#### custom
+- where user supplied modules should be placed
 
 ### devtools
 - **mount_host_shares.sh:** Creates /root/host_shares directory, then mounts all VMware shared folders from host.
