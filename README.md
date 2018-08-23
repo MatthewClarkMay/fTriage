@@ -1,6 +1,6 @@
 Automating forensic artifact extraction, reduction, and analysis.  
 
-fTriage leverages dozens of popular, open source tools to triage suspect memory/disk images. Each script automates a step in the investigation an analyst would otherwise perform manually. Moreover, I've written a wrapper to execute collections of data acquisition scripts. There is no limit to how many scripts you can run at once, but naturally there are some that need to be run before others, review the "Recommended Usage" section for example usage of prebuilt script lists.
+fTriage leverages dozens of popular, open source tools to triage suspect memory/disk images. Each module automates a step in the investigation an analyst would otherwise perform manually. Moreover, I've written a wrapper (ftriage.sh) to execute collections of these modules. There is no limit to how many modules you can run at once, but naturally there are some that need to be run before others, review the "Recommended Usage" section for example usage of prebuilt mod lists.
 
 ### Setup
 1. Install dependencies:
@@ -25,20 +25,23 @@ cd /ftriage/3rd_party/
 cp ~/<license> /ftriage/3rd_party/pescan*-*
 ```  
 3. edit /ftriage/conf/ftriage.conf and make sure all variables have been filled in.
-4. run scripts individually, or prebuilt modules.
+4. run modules individually, or in batches using ftriage.sh with modlists.
 
 ### Recommended Usage
 ```
 #NOTE: each bulk acquisition will probably generate 30-80GB content, keep that in mind
 #NOTE: probably going to wrap all this into one script, but I think this helps visualize the process.
 
-./ftriage/modules/ftriage.sh ./ftriage/conf/ftriage.conf ./ftriage/modules/scriptlists/bulk.conf &&
-./ftriage/lib/reduce_carved_files.sh ./ftriage/conf/ftriage.conf &&
-./ftriage/modules/ftriage.sh ./ftriage/conf/ftriage.conf ./ftriage/modules/scriptlists/process_reduced_files.conf &&
-./ftriage/lib/analyze_density_results.sh ./ftriage/conf/ftriage.conf
+./ftriage/ftriage.sh ./ftriage/conf/ftriage.conf ./ftriage/modlists/bulk.conf &&
+./ftriage/modules/reduce_carved_files.sh ./ftriage/conf/ftriage.conf &&
+./ftriage/ftriage.sh ./ftriage/conf/ftriage.conf ./ftriage/modlists/process_reduced_files.conf &&
+./ftriage/modules/analyze_density_results.sh ./ftriage/conf/ftriage.conf
 ```
 
-### lib (targeted scripts)
+### ftriage.sh (wrapper for running an array of modules/scripts)
+- **ftriage.sh:** Wrapper for running modules/scripts in the background and monitoring status. Logs can be found in the $OUTDIR/logs/ directory.
+
+### modules (targeted scripts)
 - **imageinfo.sh:** Runs the Volatility imageinfo command - usually used in initial setup stages to determine our memory $PROFILE variable.  
 - **malprocfind.sh:** Runs the Volatility malprocfind plugin - Finds malicious processes based on discrepancies from observed, normal behavior and properties. This plugin automates several manual checks performed on every memory image when looking for malware including expected PPID, name permutations, expected path, priority, expected cmdline args, proper user SID, session, time after boot, cmd.exe parent, missing binaries, and abnormal paths.
 - **code_injeciton.sh:** Runs the Volatility malfind plugin (looks for code injection), parses output, and dumps suspect memory sections to disk.
@@ -60,14 +63,10 @@ cp ~/<license> /ftriage/3rd_party/pescan*-*
 - **densityscout.sh:** Runs densityscout against all carved + reduced EXEs/DLLs, and against image_export/Windows and image_export/Users  
 - **analyze_density_results.sh:** Parses output from densityscout.sh, sorter.sh, d_unallocated_foremost.sh, d_slack_foremost.sh, dlldump.sh, dumpfiles_dll.sh, and dumpfiles_exe.sh. Copies carved files with high density to $OUTDIR/carving/high_density_exes/ with original filename appended.
 
-
-### modules (wrapper for running an array of scripts)
-- **ftriage.sh:** Wrapper for running scripts in the background and monitoring status. Logs can be found in the $OUTDIR/logs/ directory.
-
 ### devtools
 - **mount_host_shares.sh:** Creates /root/host_shares directory, then mounts all VMware shared folders from host.
 - **nuke.sh:** Script I use to remove various output directories during development.
-- **pkiller.sh:** Used by ftriage.sh to cleanup background scripts.
+- **pkiller.sh:** Used by ftriage.sh to cleanup background jobs.
 - **rm_extra.sh:** Removes excess output files that usually are unnecessary after initial triage.
 
 ### Notes

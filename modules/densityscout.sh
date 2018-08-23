@@ -26,7 +26,7 @@ build_outdir "$OUTDIR/carving/densityscout"
 
 # if $OUTDIR/carving/reduced_exes does not exist, inform user and exit - else, check density of contents
 if [ ! -d "$OUTDIR/carving/reduced_exes" ] || [ -f $OUTDIR/carving/densityscout/densityscout_reduced_exes.txt ]; then
-    echo "Directory $OUTDIR/carving/reduced_exes does not exist, or $OUTDIR/carving/densityscout/densityscout_reduced_exes.txt already exists, must run /ftriage/lib/reduce_carved_files.sh first - exiting now..."
+    echo "Directory $OUTDIR/carving/reduced_exes does not exist, or $OUTDIR/carving/densityscout/densityscout_reduced_exes.txt already exists, must run /ftriage/modules/reduce_carved_files.sh first - exiting now..."
     exit 1
 else
     echo "Directory $OUTDIR/carving/reduced_exes exists, checking density of contents..."
@@ -36,7 +36,7 @@ fi
 
 # if $OUTDIR/image_export does not exist, inform user and exit - else, check density of contents
 if [ ! -d "$OUTDIR/image_export" ] || [ -f $OUTDIR/carving/densityscout/densityscout_image_export.txt ]; then
-    echo "Directory $OUTDIR/image_export/ does not exist, or $OUTDIR/carving/densityscout_image_export.txt already exists, must run /ftriage/lib/image_export.sh first - exiting now..."
+    echo "Directory $OUTDIR/image_export/ does not exist, or $OUTDIR/carving/densityscout_image_export.txt already exists, must run /ftriage/modules/image_export.sh first - exiting now..."
     exit 1
 else
     echo "Directory $OUTDIR/image_export/ exists, checking density of contents..."

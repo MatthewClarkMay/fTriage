@@ -23,7 +23,7 @@ else
 fi
 
 if [ ! -d "$OUTDIR/carving/densityscout" ] || [ ! "$(ls -A $OUTDIR/carving/densityscout)" ]; then
-    echo "Directory $OUTDIR/carving/densityscout is empty, or does not exist - run ftriage/lib/densityscout.sh"
+    echo "Directory $OUTDIR/carving/densityscout is empty, or does not exist - run ftriage/modules/densityscout.sh"
     exit 1
 fi
 

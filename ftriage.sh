@@ -16,7 +16,7 @@
 # under the License.
 
 if [ $# -ne 2 ] || [ ! -f $1 ] || [ ! -f $2 ]; then
-    echo "ERROR - usage: $0 ftriage.conf scriptlist.conf"
+    echo "ERROR - usage: $0 ftriage.conf modlist.conf"
     exit 1
 else
     source $1
@@ -24,7 +24,7 @@ else
 fi
 
 conf=$(realpath $1)
-lib=$(realpath "$FTRIAGE/lib")
+modules=$(realpath "$FTRIAGE/modules")
 
 function secs_to_mins() {
     num=$1
@@ -71,7 +71,7 @@ function cleanup() {
 }
 
 echo "----------"
-echo "Running scripts in: $lib"
+echo "Running scripts in: $modules"
 echo "Using configuration file: $conf"
 echo "----------"
 
@@ -88,10 +88,10 @@ pids_out=()
 dead=()
 start_time="$(date -u +%s)"
 
-for script in "${script_list[@]}"
+for script in "${mod_list[@]}"
 do
     meta=$(echo $script | cut -f 1 -d ".")
-    $lib/$script $conf > $OUTDIR/logs/$meta.log 2>&1 &
+    $modules/$script $conf > $OUTDIR/logs/$meta.log 2>&1 &
     pids_in+=("$!")
     echo "$!" >> $OUTDIR/logs/pids.log
     echo "PID: $! - JOB: $script - writing to $OUTDIR/logs/$meta.log" | tee -a $OUTDIR/logs/$self_base.log
@@ -101,7 +101,7 @@ echo "----------" | tee -a $OUTDIR/logs/$self_base.log
 
 while [ ! "${#pids_in[@]}" -eq 0 ]; do
     clear
-    head -"${#script_list[@]}" $OUTDIR/logs/$self_base.log
+    head -"${#mod_list[@]}" $OUTDIR/logs/$self_base.log
     echo "----------"
 
     for pid in "${pids_in[@]}"
