@@ -91,10 +91,12 @@ start_time="$(date -u +%s)"
 for script in "${mod_list[@]}"
 do
     meta=$(echo $script | cut -f 1 -d ".")
-    $modules/$script $conf > $OUTDIR/logs/$meta.log 2>&1 &
-    pids_in+=("$!")
-    echo "$!" >> $OUTDIR/logs/pids.log
-    echo "PID: $! - JOB: $script - writing to $OUTDIR/logs/$meta.log" | tee -a $OUTDIR/logs/$self_base.log
+    if [ -f $modules/*/$script ]; then
+        $modules/*/$script $conf > $OUTDIR/logs/$meta.log 2>&1 &
+        pids_in+=("$!")
+        echo "$!" >> $OUTDIR/logs/pids.log
+        echo "PID: $! - JOB: $script - writing to $OUTDIR/logs/$meta.log" | tee -a $OUTDIR/logs/$self_base.log
+    fi
 done
 
 echo "----------" | tee -a $OUTDIR/logs/$self_base.log
