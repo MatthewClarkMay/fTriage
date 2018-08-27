@@ -35,7 +35,7 @@ else
 fi
 
 # if $OUTDIR/carving/volatility/rootkits/apihooks_critical.txt already exists, move on - else, create and begin automated memory analysis
-if [ -f "$OUTDIR/carving/volatility/rootkits/apihooks_raw.txt" ]; then
+if [ -f "$OUTDIR/carving/volatility/rootkits/apihooks_critical.txt" ]; then
     echo "File $OUTDIR/carving/volatility/rootkits/apihooks_raw.txt already exists - moving on..."
 else
     echo "Running Volatility apihooks plugin with -Q parameter (scan only critical processes and dlls)..."
