@@ -63,8 +63,23 @@ cp ~/<license> ./3rd_party/pescan*-*
 - **dumpfiles_dll.sh:** Runs the Volatility dumpfiles command searching for .dll files via regex.  
 - **dumpfiles_exe.sh:** Runs the Volatility dumpfiles command searching for .exe files via regex.   
 - **m_strings.sh:** Runs strings against the memory image and sorts the output. Also runs the Volatility strings command to enrich our output with process info and virtual addresses.  
-- **filescan.sh:** Runs the Volatility filescan command and saves the output in a file.  
+- **filescan.sh:** Runs the Volatility filescan command (pool scanner for file objects) and saves the output in a file.
 - **m_timeline.sh:** Builds unfiltered and filtered timelines using the Volatility timeliner command, mactime, and grep.
+- **apihooks.sh:** Find DLL function (inline and trampoline) hooks using Volatility apihooks plugin.
+- **getsids.sh:** Runs the Volatility getsids command, 
+- **ssdt.sh:** Display System Service Descriptor Table entries using Volatility ssdt plugin.
+- **idt.sh:** Display Interupt Descriptor Table hooks using Volatility idt plugin.
+- **psxview.sh:** Find hidden processes via cross-view techniques using Volatility psxview plugin.
+- **driverirp.sh:** Identify I/O request Packets (IRP) hooks using Volatility driverirp plugin.
+- **modules.sh:** Walk linked list to identify kernel drivers loaded using Volatility modules plugin.
+- **modscan.sh:** Scan memory image to find loaded, unloaded, and unlinked kernel modules using Volatility modscan plugin.
+- **handles.sh:** Print list of handles opened by the process using Volatility handles plugin.
+- **mutantscan.sh:** Scan for \_KMUTANT objects using Volatility mutantscan plugin.
+- **cmdscan.sh:** Scan for COMMAND_HISTORY buffers using Volatility cmdscan plugin.
+- **consoles.sh:** Scan for CONSOLE_INFORMATION output using Volatility consoles plugin.
+- **netscan.sh:** Scan memory for both active \& closed connections \& sockets using Volatility netscan plugin (Only works with Vista+).
+- **shimcache.sh:** Parses the Application Compatibility Shim Cache registry key using Volatility shimcache plugin.
+- **shimcachemem.sh:** Parses the Application Compatibility Shim Cache stored in kernel memory using Volatility shimcachemem plugin.
 ### Hybrid:
 - **h_timeline.sh:** Builds unfiltered and filtered combined filesystem/memory timelines using the Volatility timeliner command, fls, mactime, and grep.  
 ### Analysis:
