@@ -1,6 +1,8 @@
-Automating forensic artifact extraction, reduction, and analysis.  
+Automating forensic artifact extraction, reduction, and analysis of cold disk and memory images. So far has only been tested on NTFS .E01 disk images. This tool essentially automates the data collection and processing for the majority of what's taught in SANS FOR508, then some..
 
 fTriage leverages dozens of popular, open source tools to triage suspect memory/disk images. Each module automates a step in the investigation an analyst would otherwise perform manually. Moreover, I've written a wrapper (ftriage.sh) to execute collections of these modules. There is no limit to how many modules you can run at once, but naturally there are some that need to be run before others, review the "Recommended Usage" section for example usage of prebuilt modlists.
+
+NOTE: This suite is being built on and developed for use with the [SANS SIFT Workstation](https://digital-forensics.sans.org/community/downloads). Assuming you install every tool it depends on then it will work on other Linux distros, but I recommend [downloading the VM](https://digital-forensics.sans.org/community/downloads).
 
 ## Setup:
 1. Install dependencies:
