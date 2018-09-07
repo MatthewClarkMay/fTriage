@@ -45,7 +45,8 @@ cp ~/<license> ./3rd_party/pescan*-*
 
 ## Modules (targeted scripts):
 ### Disk:
-- **image_export.sh:** Runs image_export.py against the disk with a filter file native to the SIFT Workstation. Great initial triage script because it quickly collects key forensic artifacts from a disk image (VSS too) and organizes them neatly. An analyst can start analyzing these forensic artifacts while the more time consuming scripts run (sorter.sh for example can take 30 minutes to several hours depending on hardware).  
+- **cold_image_export.sh:** Runs image_export.py against the disk image with a filter file native to the SIFT Workstation. Great initial triage script because it quickly collects key forensic artifacts from a disk image (VSS too) and organizes them neatly. An analyst can start analyzing these forensic artifacts while the more time consuming scripts run (sorter.sh for example can take 30 minutes to several hours depending on hardware).  
+- **hot_image_export.sh:** Same thing as cold_image_export.sh, but can be used on mounted hot disk. Great for snagging forensic artifacts for initial triage before having to image the disk.
 - **sorter.sh:** Runs sorter against the disk with a filter file native to the SIFT Workstation. Accepts an indexed hash white list, usually NSRL or md5deep of baseline.
 - **tsk_recover.sh:** Runs tsk_recover to carve files out of unallocated space.  
 - **d_unallocated_foremost.sh:** Uses blkls to dump and redirect all unallocated space into a file, then runs foremost against the blkls unallocated file. Also outputs a snippit from the audit results.  
