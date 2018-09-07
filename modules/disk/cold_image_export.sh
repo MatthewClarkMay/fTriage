@@ -22,11 +22,13 @@ else
     source $1
 fi
 
-# If supertimeline OUTDIR does not exist, create it - else, continue 
+check_file_exists "$DISKPATH"
+
+# If $OUTDIR/image_export does not exist, create it - else, continue 
 build_outdir "$OUTDIR/image_export"
 
-# If $OUTDIR/foremost_slack is not empty, inform user and exit
+# If $OUTDIR/image_export is not empty, inform user and exit
 if_not_empty_exit_else_continue "$OUTDIR/image_export"
 
-image_export.py -f $EXPORTFILTER --vss_stores all -w $OUTDIR/image_export/ $DISKPATH
+image_export.py -f $EXPORTFILTER --vss_stores all --partitions all -w $OUTDIR/image_export/ $DISKPATH
 

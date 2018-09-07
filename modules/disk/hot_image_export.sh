@@ -15,14 +15,21 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-mod_list=(
-          "cold_image_export.sh"
-          "sorter.sh"
-          #"tsk_recover.sh"
-          "d_unallocated_foremost.sh"
-          "d_slack_foremost.sh"
-          "d_strings.sh"
-          "d_timeline.sh"
-          "supertimeline.sh"
-          )
+if [ $# -ne 1 ] || [ ! -f $1 ]; then
+    echo "ERROR - usage: $0 ftriage.conf"
+    exit 1
+else
+    source $1
+fi
+
+check_dir_exists "$MOUNTPATH"
+
+# If $OUTDIR/image_export does not exist, create it - else, continue 
+build_outdir "$OUTDIR/image_export"
+
+# If $OUTDIR/image_export is not empty, inform user and exit
+if_not_empty_exit_else_continue "$OUTDIR/image_export"
+
+image_export.py -f $EXPORTFILTER --partitions all -w $OUTDIR/image_export/ $MOUNTPATH
+#image_export.py -f $EXPORTFILTER --vss_stores all --partitions all -w $OUTDIR/image_export/ $MOUNTPATH
 
