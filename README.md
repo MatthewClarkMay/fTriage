@@ -83,6 +83,7 @@ cp ~/<license> ./3rd_party/pescan*-*
 - **netscan.sh:** Scan memory for both active \& closed connections \& sockets using Volatility netscan plugin (Only works with Vista+).
 - **shimcache.sh:** Parses the Application Compatibility Shim Cache registry key using Volatility shimcache plugin.
 - **shimcachemem.sh:** Parses the Application Compatibility Shim Cache stored in kernel memory using Volatility shimcachemem plugin.
+- **prefetchparser.sh:** Parses memory address space for prefetch files by scanning for proper headers and then performing strong validation to reduce false positives. Plugin then parses discovered files and presents contents to analyst.
 ### Hybrid:
 - **h_timeline.sh:** Builds unfiltered and filtered combined filesystem/memory timelines using the Volatility timeliner command, fls, mactime, and grep.  
 ### Analysis:

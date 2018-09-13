@@ -46,6 +46,11 @@ SEMI-AUTOMATED:
   - sigcheck - windows only
 - Logs
 - Super Timeline Analysis
+- Prefetch Analysis
+  + extract from disk
+  + extract from memory
+  - compare with known prefetch hashlist
+  - search for execution out of temp dir
 
 MANUAL:
 - By-Hand Memory Analysis
