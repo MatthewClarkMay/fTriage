@@ -15,6 +15,11 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+if [[ $EUID -ne 0 ]]; then
+    echo "This script must be run as root"
+    exit 1
+fi
+
 if [ $# -ne 1 ] || [ ! -f $1 ]; then
     echo "ERROR - usage: $0 ftriage.conf"
     exit 1
@@ -22,10 +27,4 @@ else
     source $1
 fi
 
-rm -rf $OUTDIR/carving/$HOSTNAME.blkls.slack 2>/dev/null
-rm -rf $OUTDIR/carving/$HOSTNAME.blkls.unallocated 2>/dev/null
-
-rm -rf $OUTDIR/timeline/fls.bodyfile 2>/dev/null
-rm -rf $OUTDIR/timeline/vol-timeliner.bodyfile 2>/dev/null
-rm -rf $OUTDIR/timeline/fls-vol-timeliner.bodyfile 2>/dev/null
-
+chown -R sansforensics:sansforensics $OUTDIR
