@@ -51,6 +51,7 @@ SEMI-AUTOMATED:
   + extract from memory
   - compare with known prefetch hashlist
   - search for execution out of temp dir
+- In
 
 MANUAL:
 - By-Hand Memory Analysis
@@ -59,7 +60,26 @@ MANUAL:
   - WildFire API
   - VirusTotal API
 - MFT Anomalies
+  - MFT outlier hunting using scatter plot
 - File Time Anomalies
+  - analyzeMFT.py
+    - NTFS artifact comparison ($STDINFO / $FILENAME)
+    - search for ".000" nanosecond anomaly
+  - filesystem journal and USN journal parsing
+- INDX Slack Parsing
+  - Wisp
+  - INDXParse.py
+- Journal Parsing
+  - $LogFile tools
+    - LogFileParser
+    - NTFS LogFile Parser
+  - $UsnJrnl tools
+    - jp
+    - USN-Journal-Parser
+  - Combined tools
+    - ntfs-linker
+    - Advanced NTFS Journal Parser (ANJP)
+    - l2t/plaso?
 
 COMPLEMENTARY SKILLS:
 - convert .E01 to .vmdk using xmount or qemu-img (https://forensicswiki.org/wiki/Virtual_machine)
