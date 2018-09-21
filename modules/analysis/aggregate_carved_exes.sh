@@ -60,3 +60,5 @@ for METADIR in "${METADIRS[@]}"; do
         done
     fi
 done
+
+fdupes -dN $OUTDIR/carving/aggregate_exes
