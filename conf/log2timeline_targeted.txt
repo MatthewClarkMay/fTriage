@@ -48,6 +48,8 @@
 {systemroot}/System32/LogFiles/.+/.+[.]txt
 # Windows artifacts.
 {systemroot}/Tasks/.+[.]job
+{systemroot}/System32/Tasks/.+[.]job
+{systemroot}/System32/Tasks/.+[.]xml
 {systemroot}/Appcompat/Programs/Recentfilecache[.]bcf
 {systemroot}/Appcompat/Programs/AMcache[.]hve
 # Prefetch files.

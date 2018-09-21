@@ -25,7 +25,7 @@ fi
 rm -rf $OUTDIR/carving/$HOSTNAME.blkls.slack 2>/dev/null
 rm -rf $OUTDIR/carving/$HOSTNAME.blkls.unallocated 2>/dev/null
 
-rm -rf $OUTDIR/timeline/fls.bodyfile 2>/dev/null
-rm -rf $OUTDIR/timeline/vol-timeliner.bodyfile 2>/dev/null
-rm -rf $OUTDIR/timeline/fls-vol-timeliner.bodyfile 2>/dev/null
+rm -rf $OUTDIR/*timeline/fls.bodyfile 2>/dev/null
+rm -rf $OUTDIR/*timeline/vol-timeliner.bodyfile 2>/dev/null
+rm -rf $OUTDIR/*timeline/fls-vol-timeliner.bodyfile 2>/dev/null
 

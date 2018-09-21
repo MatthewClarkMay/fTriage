@@ -26,7 +26,7 @@ AUTOMATED:
   + VSS
   + sorter - compare nsrl to disk image --> carve + sort all files (excluding nsrl)
   + tsk_recover
-  - hash carved files - needs tweaking
+  - hash aggregate files - needs tweaking
   - Compare carved hashes to good hash list (sorter does not do this for files that have no metadata or filename data)
 
 - AV Checks
@@ -51,7 +51,6 @@ SEMI-AUTOMATED:
   + extract from memory
   - compare with known prefetch hashlist
   - search for execution out of temp dir
-- In
 
 MANUAL:
 - By-Hand Memory Analysis
@@ -59,16 +58,14 @@ MANUAL:
   - Recorded Future API
   - WildFire API
   - VirusTotal API
+
 - MFT Anomalies
   - MFT outlier hunting using scatter plot
 - File Time Anomalies
   - analyzeMFT.py
     - NTFS artifact comparison ($STDINFO / $FILENAME)
     - search for ".000" nanosecond anomaly
-  - filesystem journal and USN journal parsing
-- INDX Slack Parsing
-  - Wisp
-  - INDXParse.py
+  - logfile journal and USN journal parsing
 - Journal Parsing
   - $LogFile tools
     - LogFileParser
@@ -80,6 +77,9 @@ MANUAL:
     - ntfs-linker
     - Advanced NTFS Journal Parser (ANJP)
     - l2t/plaso?
+- INDX Slack Parsing
+  - Wisp
+  - INDXParse.py
 
 COMPLEMENTARY SKILLS:
 - convert .E01 to .vmdk using xmount or qemu-img (https://forensicswiki.org/wiki/Virtual_machine)

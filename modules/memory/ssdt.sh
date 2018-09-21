@@ -25,9 +25,9 @@ fi
 # If $OUTDIR/carving/volatility/rootkits does not exist, create it - else, continue 
 build_outdir "$OUTDIR/carving/volatility/rootkits"
 
-# if $OUTDIR/carving/volatility/rootkits/ssdt.txt already exists, move on - else, create and begin automated memory analysis
-if [ -f "$OUTDIR/carving/volatility/rootkits/ssdt.txt" ]; then
-    echo "File $OUTDIR/carving/volatility/rootkits/ssdt.txt already exists - moving on..."
+# if $OUTDIR/carving/volatility/rootkits/ssdt_filtered.txt already exists, move on - else, create and begin automated memory analysis
+if [ -f "$OUTDIR/carving/volatility/rootkits/ssdt_filtered.txt" ]; then
+    echo "File $OUTDIR/carving/volatility/rootkits/ssdt_filtered.txt already exists - moving on..."
 else
     echo "Running Volatility ssdt plugin..."
     echo ""

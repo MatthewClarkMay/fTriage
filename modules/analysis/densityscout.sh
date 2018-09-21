@@ -24,14 +24,13 @@ fi
 
 build_outdir "$OUTDIR/carving/densityscout"
 
-# if $OUTDIR/carving/reduced_exes does not exist, inform user and exit - else, check density of contents
-if [ ! -d "$OUTDIR/carving/reduced_exes" ] || [ -f $OUTDIR/carving/densityscout/densityscout_reduced_exes.txt ]; then
-    echo "Directory $OUTDIR/carving/reduced_exes does not exist, or $OUTDIR/carving/densityscout/densityscout_reduced_exes.txt already exists, must run /ftriage/modules/reduce_carved_files.sh first - exiting now..."
+# if $OUTDIR/carving/aggregate_exes does not exist, inform user and exit - else, check density of contents
+if [ ! -d "$OUTDIR/carving/aggregate_exes" ] || [ -f $OUTDIR/carving/densityscout/densityscout_aggregate_exes.txt ]; then
+    echo "Directory $OUTDIR/carving/aggregate_exes does not exist, or $OUTDIR/carving/densityscout/densityscout_aggregate_exes.txt already exists, must run /ftriage/modules/reduce_carved_files.sh first - exiting now..."
     exit 1
 else
-    echo "Directory $OUTDIR/carving/reduced_exes exists, checking density of contents..."
-    densityscout -p $DENSITY -o $OUTDIR/carving/densityscout/densityscout_reduced_exes.txt $OUTDIR/carving/reduced_exes | tee "$OUTDIR"/carving/densityscout/densityscout_"$DENSITY"_reduced_exes.txt
-    #densityscout -pe -p $DENSITY -o $OUTDIR/carving/densityscout/densityscout_reduced_exes.txt $OUTDIR/carving/reduced_exes | tee "$OUTDIR"/carving/densityscout/densityscout_"$DENSITY"_reduced_exes.txt
+    echo "Directory $OUTDIR/carving/aggregate_exes exists, checking density of contents..."
+    densityscout -p $DENSITY -o $OUTDIR/carving/densityscout/densityscout_aggregate_exes.txt $OUTDIR/carving/aggregate_exes | tee "$OUTDIR"/carving/densityscout/densityscout_"$DENSITY"_aggregate_exes.txt
 fi
 
 # if $OUTDIR/image_export does not exist, inform user and exit - else, check density of contents
@@ -41,8 +40,6 @@ if [ ! -d "$OUTDIR/image_export" ] || [ -f $OUTDIR/carving/densityscout/densitys
 else
     echo "Directory $OUTDIR/image_export/ exists, checking density of contents..."
     densityscout -r -p $DENSITY -o $OUTDIR/carving/densityscout/densityscout_image_export_c-windows.txt $OUTDIR/image_export/*indows | tee "$OUTDIR"/carving/densityscout/densityscout_"$DENSITY"_image_export_c-windows.txt
-    #densityscout -r -pe -p $DENSITY -o $OUTDIR/carving/densityscout/densityscout_image_export_c-windows.txt $OUTDIR/image_export/*indows | tee "$OUTDIR"/carving/densityscout/densityscout_"$DENSITY"_image_export_c-windows.txt
     densityscout -r -p $DENSITY -o $OUTDIR/carving/densityscout/densityscout_image_export_c-users.txt $OUTDIR/image_export/*sers | tee "$OUTDIR"/carving/densityscout/densityscout_"$DENSITY"_image_export_c-users.txt
-    #densityscout -r -pe -p $DENSITY -o $OUTDIR/carving/densityscout/densityscout_image_export_c-users.txt $OUTDIR/image_export/*sers | tee "$OUTDIR"/carving/densityscout/densityscout_"$DENSITY"_image_export_c-users.txt
 fi
 

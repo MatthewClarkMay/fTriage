@@ -1,3 +1,4 @@
+## Summary:
 Automating forensic artifact extraction, reduction, and analysis of cold disk and memory images. So far has only been tested on NTFS .E01 disk images. This tool essentially automates the data collection and processing for the majority of what's taught in SANS FOR508, then some..
 
 fTriage leverages dozens of popular, open source tools to triage suspect memory/disk images. Each module automates a step in the investigation an analyst would otherwise perform manually. Moreover, I've written a wrapper (ftriage.sh) to execute collections of these modules. There is no limit to how many modules you can run at once, but naturally there are some that need to be run before others, review the "Recommended Usage" section for example usage of prebuilt modlists.
@@ -16,9 +17,16 @@ cd ./conf/nsrl/
 unzip rds_modernm.zip
 ./build_nsrl_idx.sh
 ```
-3. Edit ./conf/ftriage.conf and make sure all variables have been filled in.
-4. Run modules individually, or in batches using ftriage.sh with modlists.
-5. (OPTIONAL) Download 3rd party tools - These tools aren't yet integrated with fTriage, but they will be eventually and the scripts are nice shortcuts so we don't need to browse to the download site(s):
+3. (OPTIONAL) Setup shared host directory using VMware
+```
+# NOTE: It is unwise to share your output directory with the host - if fTriage carves out malware samples then you don't want them being exposed to your host. This is more to easily share timelines, and other benign forensic artifacts for analysis with Windows tools. I also tend to place my disk and memory images in this directory.
+
+Create directory in desired location on host...
+Share directory with SIFT guest by focusing the VM and selecting VM --> Settings --> Options --> Shared Folders
+```
+4. Edit ./conf/ftriage.conf and make sure all variables have been filled in.
+5. Run modules individually, or in batches using ftriage.sh with modlists.
+6. (OPTIONAL) Download 3rd party tools - These tools aren't yet integrated with fTriage, but they will be eventually and the scripts are nice shortcuts so we don't need to browse to the download site(s):
 ```
 #NOTE: pescan requires a license from tzworks, you can request one by emailing "info@tzworks.net" or filling out the "demo" form at "https://www.tzworks.net/store/product_page.php"
 
@@ -35,8 +43,8 @@ cp ~/<license> ./3rd_party/pescan*-*
 #NOTE: Probably going to wrap all this into one script, but I think this helps visualize the process.
 
 ./ftriage.sh ./conf/ftriage.conf ./modlists/bulk.conf &&
-./modules/analysis/reduce_carved_files.sh ./conf/ftriage.conf &&
-./ftriage.sh ./conf/ftriage.conf ./modlists/process_reduced_files.conf &&
+./modules/analysis/aggregate_carved_exes.sh ./conf/ftriage.conf &&
+./ftriage.sh ./conf/ftriage.conf ./modlists/process_files.conf &&
 ./modules/analysis/analyze_density_results.sh ./conf/ftriage.conf
 ```
 
@@ -87,10 +95,12 @@ cp ~/<license> ./3rd_party/pescan*-*
 ### Hybrid:
 - **h_timeline.sh:** Builds unfiltered and filtered combined filesystem/memory timelines using the Volatility timeliner command, fls, mactime, and grep.  
 ### Analysis:
-- **reduce_carved_files.sh:** Moves all carved files from their respective carving output directories into a common directory. 
-- **hash_carved_files.sh:** Builds md5 hash lists of carved files in $OUTDIR.  
-- **densityscout.sh:** Runs densityscout against all carved + reduced EXEs/DLLs, and against image_export/Windows and image_export/Users  
+- **aggregate_carved_exes.sh:** Moves all carved exes, pdfs, and Office docs from their respective carving output directories into a common directory.
+- **hash_aggregate_exes.sh:** Builds md5 hash lists of carved exes, pdfs, and Office docs. 
+- **densityscout.sh:** Runs densityscout against all carved + aggregated EXEs/DLLs, and against image_export/Windows and image_export/Users  
 - **analyze_density_results.sh:** Parses output from densityscout.sh, sorter.sh, d_unallocated_foremost.sh, d_slack_foremost.sh, dlldump.sh, dumpfiles_dll.sh, and dumpfiles_exe.sh. Copies carved files with high density to $OUTDIR/carving/high_density_exes/ with original filename appended.
+- **get_mft_hunt_data.sh <_MFT_DIR>:** Runs analyzeMFT.py with anomaly detection against each file ending in "_MFT". Optional <_MFT_DIR> directory parameter, or by default will run againt $OUTDIR/image_export.
+
 ### Custom:
 - Where user supplied modules should be placed - Have included a template file here
 

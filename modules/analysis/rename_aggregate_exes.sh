@@ -22,19 +22,20 @@ else
     source $1
 fi
 
-if [ ! -d "$OUTDIR/carving/densityscout" ] || [ ! "$(ls -A $OUTDIR/carving/densityscout)" ]; then
-    echo "Directory $OUTDIR/carving/densityscout is empty, or does not exist - run ftriage/modules/densityscout.sh"
+if [ ! -d "$OUTDIR/carving/reduced_exes" ] || [ ! "$(ls -A $OUTDIR/carving/reduced_exes)" ]; then
+    echo "Directory $OUTDIR/carving/reduced_exes is empty, or does not exist - run ftriage/modules/analysis/reduce_carved_exes.sh"
     exit 1
 fi
 
-build_outdir "$OUTDIR/carving/high_density_exes"
-if_not_empty_exit_else_continue "$OUTDIR/carving/high_density_exes"
+check_dir_exists "$OUTDIR/carving/aggregate_exes"
 
-echo "Analyzing densityscout results..."
+echo "Renaming aggregate_exes..."
+echo ""
 
-if [ -f "$OUTDIR"/carving/densityscout/densityscout_"$DENSITY"_aggregate_exes.txt ]; then
+if [ -f "$OUTDIR"/carving/densityscout/densityscout_"$DENSITY"_reduced_exes.txt ]; then
     diskbase=$(basename "$DISKPATH")
     while read line; do
+        # Begin foremost parsing and renaming
         if echo "$line" | grep -q -P '\(\d\.\d{5}\)\s\|\s'; then
             # Replace leading and trailing whitespace 
             binpath=$(echo "$line" | cut -d"|" -f2 | sed 's/^[ \t]*//;s/[ \t]*$//') # full path
@@ -116,7 +117,7 @@ if [ -f "$OUTDIR"/carving/densityscout/densityscout_"$DENSITY"_aggregate_exes.tx
              fi
             # End dumpfiles parsing and renaming
         fi
-    done < "$OUTDIR"/carving/densityscout/densityscout_"$DENSITY"_aggregate_exes.txt
+    done < "$OUTDIR"/carving/densityscout/densityscout_"$DENSITY"_reduced_exes.txt
 fi
 
 # Possible output formats for files carved
