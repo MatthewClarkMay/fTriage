@@ -15,7 +15,7 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-if [ $# -lt 1 ] || [ $# -gt 3 ] || [ ! -f $1 ] || [ ! -d $2 ]; then
+if [ $# -lt 1 ] || [ $# -gt 2 ] || [ ! -f $1 ] || [ ! -d $2 ]; then
     echo "ERROR - usage: $0 ftriage.conf <_MFT_DIR>"
     exit 1
 else
@@ -37,8 +37,8 @@ fi
 
 echo "Running analyzeMFT.py against $MFTPATH/*_MFT..."
 
-for mft in $MFTPATH/*_MFT; do
-    BNAME=$(basename $mft)
+for MFT in $MFTPATH/*_MFT; do
+    BNAME=$(basename $MFT)
     printf "\n$MFTPATH/*_MFT\n"
     analyzeMFT.py -a -p -f $MFTPATH/$BNAME -o $OUTDIR/mft/"$BNAME"-analyzeMFT.csv
 done
