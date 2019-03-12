@@ -14,7 +14,7 @@ sudo ./dependencies.sh
 ```
 cd ./conf/nsrl/
 ./pull.sh
-unzip rds_modernm.zip
+unzip rds_modernm.zip -d ./rds_modernm
 ./build_nsrl_idx.sh
 ```
 3. (OPTIONAL) Setup shared host directory using VMware
